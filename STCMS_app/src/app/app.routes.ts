@@ -10,6 +10,7 @@ export const routes: Routes = [
     path: 'admin',
     component: AdminDashboard,
   },
+
   // {
   //   path: 'register',
   //   component: Register,
