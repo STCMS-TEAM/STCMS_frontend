@@ -1,0 +1,21 @@
+<section class="paginator">
+  <nav aria-label="Page navigation example" class="">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" href="#" (click)="goToPrevious($event)">Previous</a>
+      </li>
+      @for(p of pages; track $index) {
+      <li class="page-item">
+        <a class="page-link" href="#" (click)="goToPage(p, $event)" [class.active]="p === page">
+          {{ p }}
+        </a>
+      </li>
+
+      }
+
+      <li class="page-item">
+        <a class="page-link" href="#" (click)="goToNext($event)">Next</a>
+      </li>
+    </ul>
+  </nav>
+</section>

@@ -15,12 +15,13 @@
           </tr>
         </thead>
         <tbody>
+          @for(user of users; track user.id) {
           <tr>
-            <th scope="row">1</th>
-            <td>Mark Otto</td>
-            <td>Mark@gmail.com</td>
-            <td>Admin</td>
-            <td>24 Jun 2024, 9:23 pm</td>
+            <th scope="row">{{ $index + 1 }}</th>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.type_user}}</td>
+            <td>{{ user.createdAt | date: 'dd MMM yyyy, h:mm a' }}</td>
             <td>
               <div class="ms-auto d-flex gap-2">
                 <button
@@ -36,51 +37,15 @@
               </div>
             </td>
           </tr>
+          }@empty {
           <tr>
-            <th scope="row">2</th>
-            <td>Jacob Thornton</td>
-            <td>Jacob@gmail.com</td>
-            <td>Default</td>
-            <td>25 Jun 2024, 9:23 pm</td>
-            <td>
-              <div class="ms-auto d-flex gap-2">
-                <button
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                >
-                  <i class="bi bi-pencil"></i> Edit
-                </button>
-                <button type="button" class="btn btn-danger">
-                  <i class="bi bi-trash"></i> Delete
-                </button>
-              </div>
-            </td>
+            <td colspan="6" class="text-center">No users found.</td>
           </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>John Doe</td>
-            <td>Jonh@gmail.com</td>
-
-            <td>Default</td>
-            <td>27 Jun 2024, 6:23 pm</td>
-            <td>
-              <div class="ms-auto d-flex gap-2">
-                <button
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                >
-                  <i class="bi bi-pencil"></i> Edit
-                </button>
-                <button type="button" class="btn btn-danger">
-                  <i class="bi bi-trash"></i> Delete
-                </button>
-              </div>
-            </td>
-          </tr>
+          }
         </tbody>
       </table>
     </div>
+    <app-paginator [page]="page" [totalPages]="totalPages" (pageChange)="onPageChange($event)">
+    </app-paginator>
   </div>
 </section>
