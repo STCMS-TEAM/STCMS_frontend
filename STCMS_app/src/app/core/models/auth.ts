@@ -1,8 +1,12 @@
 export interface User {
-  id: string;
   name: string;
+  last_name: string;
   email: string;
-  accessToken: string;
+  password: string;
+  gender: string;
+  age: number;
+  phone_number: string;
+  accessToken?: string;
 }
 
 export interface AuthResponse {

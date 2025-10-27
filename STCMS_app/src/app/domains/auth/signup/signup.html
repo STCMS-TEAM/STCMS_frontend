@@ -1,0 +1,102 @@
+<section
+  class="register-section d-flex justify-content-center align-items-center min-vh-100 bg-dark"
+>
+  <div class="d-flex">
+    <div class="d-flex">
+      <img src="assets/svg/signup.svg" class="w-75" alt="Sign up immage is missing" />
+    </div>
+
+    <form class="d-flex flex-column" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <h2 class="mb-3 text-white">Sign Up</h2>
+      <p class="mb-4 text-white">Create your account to start using the platform</p>
+
+      <!-- Name -->
+      <div class="mb-3">
+        <label for="name" class="form-label text-white">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          formControlName="name"
+          placeholder="Marco"
+        />
+      </div>
+
+      <!-- Last Name -->
+      <div class="mb-3">
+        <label for="lastName" class="form-label text-white">Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          formControlName="last_name"
+          placeholder="Favero"
+        />
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="email" class="form-label text-white">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          formControlName="email"
+          placeholder="marco@gmail.com"
+        />
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3">
+        <label for="password" class="form-label text-white">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password"
+          placeholder="Enter your password"
+        />
+      </div>
+
+      <!-- Gender -->
+      <div class="mb-3">
+        <label for="gender" class="form-label text-white">Gender</label>
+        <select class="form-select" id="gender" formControlName="gender">
+          <option value="" selected disabled>Select your gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <!-- Age -->
+      <div class="mb-3">
+        <label for="age" class="form-label text-white">Age</label>
+        <input
+          type="number"
+          class="form-control"
+          id="age"
+          formControlName="age"
+          placeholder="25"
+          min="1"
+        />
+      </div>
+
+      <!-- Phone Number -->
+      <div class="mb-3">
+        <label for="phoneNumber" class="form-label text-white">Phone Number</label>
+        <input
+          type="tel"
+          class="form-control"
+          id="phoneNumber"
+          formControlName="phone_number"
+          placeholder="1591827319"
+        />
+      </div>
+
+      <div class="text-center mt-3">
+        <button type="submit" class="btn btn-primary mb-3">Confirm identity</button>
+      </div>
+    </form>
+  </div>
+</section>

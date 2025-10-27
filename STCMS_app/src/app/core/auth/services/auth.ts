@@ -2,7 +2,6 @@ import { DestroyRef, Injectable, computed, effect, inject, signal } from '@angul
 import { HttpClient } from '@angular/common/http';
 import { AuthResponse, User } from '../../models/auth';
 import { environment } from '../../../../environments/environment.development';
-
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 
@@ -73,15 +72,11 @@ export class AuthService {
       });
   }
 
-  register(name: string, email: string, password: string): void {
+  register(user: User): void {
     this._state.update((s) => ({ ...s, loading: true }));
-
+    // TODO register part
     this.http
-      .post<AuthResponse>(
-        `${this.baseUrl}/register`,
-        { name, email, password },
-        { withCredentials: true },
-      )
+      .post<AuthResponse>(`${this.baseUrl}/register`, user, { withCredentials: true })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (response) => {

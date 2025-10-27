@@ -27,7 +27,7 @@
         </li>
       </ul>
       @if(isAuth()) {
-      <div></div>
+      <button class="btn btn-outline-light" (click)="logout()">Logout</button>
       }@else {
       <div class="ms-auto d-flex gap-2">
         <a routerLink="/login" class="btn btn-primary">Log in</a>

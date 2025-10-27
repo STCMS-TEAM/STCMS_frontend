@@ -1,0 +1,47 @@
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../../core/auth/services/auth';
+import { Router } from '@angular/router';
+import { User } from '../../../core/models/auth';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-signup',
+  imports: [ReactiveFormsModule, CommonModule],
+  templateUrl: './signup.html',
+  styleUrl: './signup.css',
+})
+export class Signup {
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
+  registerForm = new FormGroup({
+    name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    last_name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    gender: new FormControl('', Validators.required),
+    age: new FormControl('', [Validators.required, Validators.min(1)]),
+    phone_number: new FormControl('', [Validators.required, Validators.pattern(/^\d+$/)]),
+  });
+
+  onSubmit() {
+    console.log(this.registerForm.value);
+    if (this.registerForm.valid) {
+      const formValue = this.registerForm.value;
+      const user: User = {
+        name: formValue.name!,
+        last_name: formValue.last_name!,
+        email: formValue.email!,
+        password: formValue.password!,
+        gender: formValue.gender!,
+        age: Number(formValue.age), // convert string to number
+        phone_number: formValue.phone_number!,
+      }; // cast to User type
+      console.log('Form submitted:', user);
+      this.authService.register(user); // pass the entire object
+    } else {
+      console.warn('Form is invalid');
+    }
+  }
+}
