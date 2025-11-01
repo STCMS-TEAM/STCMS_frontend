@@ -27,4 +27,8 @@ export class Login {
       console.warn('Form is invalid');
     }
   }
+
+  onLogout() {
+    this.authService.logout();
+  }
 }

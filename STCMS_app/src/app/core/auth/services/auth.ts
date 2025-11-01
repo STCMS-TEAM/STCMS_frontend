@@ -19,7 +19,7 @@ export class AuthService {
   private router = inject(Router);
 
   private readonly baseUrl = `${environment.API_DEV_URL}/auth`;
-  private _accessTokenKey = 'accessToken';
+  private _accessTokenKey = 'access_token';
   private _storedToken = sessionStorage.getItem(this._accessTokenKey);
 
   private _state = signal<AuthState>({
@@ -60,7 +60,7 @@ export class AuthService {
         next: (response) => {
           (this._state.update(() => ({
             user: response.user,
-            token: response.accessToken,
+            token: response.access_token,
             isAuth: true,
             loading: false,
           })),
@@ -82,7 +82,7 @@ export class AuthService {
         next: (response) => {
           (this._state.update(() => ({
             user: response.user,
-            token: response.accessToken,
+            token: response.access_token,
             isAuth: true,
             loading: false,
           })),

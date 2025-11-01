@@ -1,0 +1,82 @@
+<section
+  class="create-tournament-section d-flex justify-content-center align-items-center min-vh-100 bg-dark"
+>
+  <div class="d-flex">
+    <div class="d-flex">
+      <img src="assets/svg/create-tournament.svg" class="w-75" alt="Sign up immage is missing" />
+    </div>
+
+    <form class="d-flex flex-column" [formGroup]="tournamentForm" (ngSubmit)="onSubmit()">
+      <h2 class="mb-3 text-white">Create Tournament</h2>
+      <p class="mb-4 text-white">Fill in the details below to create a new tournament.</p>
+
+      <!-- Tournament -->
+      <div class="mb-3">
+        <label for="name" class="form-label text-white">Tournament's name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          formControlName="name"
+          placeholder="name"
+        />
+      </div>
+
+      <!-- Description -->
+      <div class="mb-3">
+        <label for="description" class="form-label text-white">Description</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          formControlName="description"
+          placeholder="Enter your description"
+        />
+      </div>
+
+      <!-- StartDate -->
+      <div class="mb-3">
+        <label for="startDate" class="form-label text-white">Start Date</label>
+        <input
+          type="text"
+          class="form-control"
+          id="startDate"
+          formControlName="startDate"
+          placeholder="Enter your start date"
+        />
+      </div>
+
+      <!-- EndDate -->
+      <div class="mb-3">
+        <label for="endDate" class="form-label text-white">End Date</label>
+        <input
+          type="text"
+          class="form-control"
+          id="endDate"
+          formControlName="endDate"
+          placeholder="Enter your end date"
+        />
+      </div>
+
+      <!-- type tournament -->
+      <div class="mb-3">
+        <label for="endDate" class="form-label text-white">Type Tournament</label>
+        <input
+          type="text"
+          class="form-control"
+          id="typeTournament"
+          formControlName="type"
+          placeholder="Enter tournament type"
+        />
+      </div>
+
+      <div class="text-center mt-3">
+        <button type="submit" class="btn btn-primary mb-3">Create tournament</button>
+      </div>
+      <p class="text-center text-white mt-3">
+        Go back to
+        <a routerLink="/home" class="text-decoration-underline text-info">Homepage</a>
+      </p>
+    </form>
+  </div>
+</section>

@@ -2,7 +2,7 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
   /* Primary Colors */
-  --color-primary: #2563eb; /* Vivid Blue - CTA, buttons */
+  --color-primary: #00141e; /* Vivid Blue - CTA, buttons */
   --color-primary-dark: #1e40af; /* Deep Blue - hover, active */
   --color-primary-light: #60a5fa; /* Soft Blue - backgrounds, subtle accents */
 
@@ -35,11 +35,15 @@
 
   --border-color-base: 229 229 229; /* RGB only, no rgb() wrapper */
   --border-opacity: 1;
+
+  --color-panel: #1f2833;
+  --color-accent: #66fcf1;
+  --color-accent-dark: #45a29e;
 }
 
 @font-face {
   font-family: 'Poppins';
-  src: url('/fonts/Poppins-Light.ttf') format('truetype');
+  src: url('/assets/fonts/Poppins-Light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
 }
@@ -81,7 +85,8 @@ body {
   font-size: 1rem;
   line-height: 1.5;
   background-color: var(--color-bg);
-  background-image:
-    radial-gradient(circle at center, rgba(243, 244, 246, 0.2), rgba(243, 244, 246, 0.8)),
-    url('/assets/svg/hero-background.svg');
+}
+.bg-custom-primary {
+  background-color: var(--color-primary);
+  color: #fff;
 }
