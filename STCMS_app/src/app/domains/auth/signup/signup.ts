@@ -21,7 +21,7 @@ export class Signup {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     gender: new FormControl('', Validators.required),
-    age: new FormControl('', [Validators.required, Validators.min(1)]),
+    birthDate: new FormControl('', [Validators.required, Validators.min(1)]),
     phone_number: new FormControl('', [Validators.required, Validators.pattern(/^\d+$/)]),
   });
 
@@ -35,10 +35,9 @@ export class Signup {
         email: formValue.email!,
         password: formValue.password!,
         gender: formValue.gender!,
-        age: Number(formValue.age), // convert string to number
+        birthDate: new Date(formValue.birthDate!), // convert string to number
         phone_number: formValue.phone_number!,
       }; // cast to User type
-      console.log('Form submitted:', user);
       this.authService.register(user); // pass the entire object
     } else {
       console.warn('Form is invalid');
