@@ -3,7 +3,7 @@ import { Tournaments } from '../tournaments/tournaments';
 
 @Component({
   selector: 'app-match',
-  imports: [],
+  imports: [Tournaments],
   templateUrl: './match.html',
   styleUrl: './match.css',
 })

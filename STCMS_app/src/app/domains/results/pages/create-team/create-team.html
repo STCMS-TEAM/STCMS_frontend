@@ -1,0 +1,56 @@
+<section
+  class="create-team-section d-flex justify-content-center align-items-center min-vh-100 bg-dark"
+>
+  <div class="d-flex">
+    <!-- Illustration -->
+    <div class="d-flex align-items-center">
+      <img src="assets/svg/team.svg" class="w-75" alt="Team creation image" />
+    </div>
+
+    <!-- Create Team Form -->
+    <form class="d-flex flex-column" [formGroup]="createTeamForm" (ngSubmit)="onSubmit()">
+      <h2 class="mb-3 text-white">Create Team</h2>
+      <p class="mb-4 text-white">Register your team to participate in the tournament</p>
+
+      <!-- Team Name -->
+      <div class="mb-3">
+        <label for="teamName" class="form-label text-white">Team Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="teamName"
+          formControlName="name"
+          placeholder="Enter your team name"
+        />
+      </div>
+
+      <!-- Tournament -->
+      <div class="mb-3">
+        <label for="tournament" class="form-label text-white">Tournament</label>
+        <select class="form-select" id="tournament" formControlName="tournamentId">
+          <option value="" selected disabled>Select a tournament</option>
+          @for (tournament of tournaments(); track $index) {
+          <option [value]="tournament.id">{{ tournament.name }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- Members -->
+      <div class="mb-3">
+        <label for="members" class="form-label text-white">Team Members</label>
+        <textarea
+          id="members"
+          rows="3"
+          class="form-control"
+          formControlName="players"
+          placeholder="List team members, separated by commas"
+        ></textarea>
+      </div>
+
+      <!-- Submit -->
+      <div class="text-center mt-3">
+        <button type="submit" class="btn btn-primary mb-3">Register Team</button>
+      </div>
+    </form>
+  </div>
+</section>

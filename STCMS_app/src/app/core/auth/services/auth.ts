@@ -19,7 +19,7 @@ export class AuthService {
   private router = inject(Router);
 
   private readonly baseUrl = `${environment.API_DEV_URL}/auth`;
-  private _accessTokenKey = 'access_token';
+  private _accessTokenKey = 'accessToken';
   private _storedToken = sessionStorage.getItem(this._accessTokenKey);
 
   private _state = signal<AuthState>({
@@ -60,10 +60,11 @@ export class AuthService {
         next: (response) => {
           (this._state.update(() => ({
             user: response.user,
-            token: response.access_token,
+            token: response.accessToken,
             isAuth: true,
             loading: false,
           })),
+            console.log(response),
             this.router.navigate(['/home']));
         },
         error: (err) => {
@@ -82,7 +83,7 @@ export class AuthService {
         next: (response) => {
           (this._state.update(() => ({
             user: response.user,
-            token: response.access_token,
+            token: response.accessToken,
             isAuth: true,
             loading: false,
           })),
@@ -114,5 +115,13 @@ export class AuthService {
         },
         error: (err) => console.error('Logout failed', err),
       });
+  }
+
+  getToken(): string | null {
+    return sessionStorage.getItem(this._accessTokenKey);
+  }
+
+  clearToken(): void {
+    sessionStorage.removeItem(this._accessTokenKey);
   }
 }

@@ -14,17 +14,22 @@
     <div class="collapse navbar-collapse" id="navmenu">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a href="#learn" class="nav-link">Home</a>
+          <a routerLink="/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item">
           <a routerLink="/result" class="nav-link">Tournaments</a>
         </li>
         <li class="nav-item">
-          <a href="#instructors" class="nav-link">Results</a>
+          <a href="#instructors" class="nav-link">Reports</a>
         </li>
         <li class="nav-item">
           <a href="#instructors" class="nav-link">About</a>
         </li>
+        @if(isAuth()) {
+        <li class="nav-item">
+          <a routerLink="/create-team" class="nav-link">Create Team</a>
+        </li>
+        }
       </ul>
       @if(isAuth()) {
       <button class="btn btn-outline-light" (click)="logout()">Logout</button>

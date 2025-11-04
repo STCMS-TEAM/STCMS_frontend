@@ -42,7 +42,7 @@
           class="form-control"
           id="startDate"
           formControlName="startDate"
-          placeholder="Enter your start date"
+          placeholder="1998-04-12"
         />
       </div>
 
@@ -54,7 +54,7 @@
           class="form-control"
           id="endDate"
           formControlName="endDate"
-          placeholder="Enter your end date"
+          placeholder="1999-04-12"
         />
       </div>
 
@@ -68,6 +68,17 @@
           formControlName="type"
           placeholder="Enter tournament type"
         />
+      </div>
+      <div class="mb-3">
+        <label for="sport" class="form-label text-white">Sport</label>
+        <select class="form-select" id="sport" formControlName="sport">
+          <option value="">Select a sport</option>
+          <option value="soccer">soccer</option>
+          <option value="basketball">basketball</option>
+          <option value="volleyball">volleyball</option>
+          <option value="cycling">cycling</option>
+          <option value="athletics">athletics</option>
+        </select>
       </div>
 
       <div class="text-center mt-3">

@@ -90,3 +90,8 @@ body {
   background-color: var(--color-primary);
   color: #fff;
 }
+.selected {
+  text-underline-offset: 6px;
+  font-weight: bold;
+  color: #0d6efd; /* optional Bootstrap primary color */
+}

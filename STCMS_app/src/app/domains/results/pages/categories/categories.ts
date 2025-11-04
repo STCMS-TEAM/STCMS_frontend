@@ -1,9 +1,46 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject, signal } from '@angular/core';
+import { ResultsService } from '../../services/resuls';
+import { Tournament } from '../../models/tournament';
 
 @Component({
   selector: 'app-categories',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './categories.html',
   styleUrl: './categories.css',
 })
-export class Categories {}
+export class Categories {
+  private resultService = inject(ResultsService);
+  selectedSport = signal<string>('basketball');
+
+  sports = [
+    { name: 'Football', icon: 'fa-futbol', value: 'soccer' },
+    { name: 'Tennis', icon: 'fa-table-tennis-paddle-ball', value: 'tennis' },
+    { name: 'Basketball', icon: 'fa-basketball', value: 'basketball' },
+    { name: 'Cycling', icon: 'fa-person-biking', value: 'cycling' },
+  ];
+
+  // basketball is default sport that is loaded
+  ngOnInit() {
+    this.resultService.getTournamentsById('basketball').subscribe({
+      next: (res) => {
+        this.resultService.setTournaments(res);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  selectSport(sport: string) {
+    this.selectedSport.set(sport);
+    // Fetch tournaments for the selected sport
+    this.resultService.getTournamentsById(sport).subscribe({
+      next: (tournaments: Tournament[]) => {
+        // Share data with TournamentsComponent
+        this.resultService.setTournaments(tournaments);
+      },
+      error: (err) => console.error('Failed to load tournaments', err),
+    });
+  }
+}

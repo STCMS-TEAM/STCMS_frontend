@@ -1,9 +1,11 @@
 <section class="tournaments-section mt-3">
-  <div class="container border border-2 rounded bg-dark">
-    <div class="d-flex flex-column">
-      <h5>Sqadra 1</h5>
-
-      <h5>Sqadra 2</h5>
+  <div class="container border border-2 rounded bg-dark text-white">
+    @if (tournaments().length === 0) {
+    <p>No tournaments found for this sport.</p>
+    } @else { @for (tournament of tournaments(); track $index) {
+    <div class="border-bottom py-2 text-white">
+      <h5>{{ tournament.name }}</h5>
     </div>
+    } }
   </div>
 </section>

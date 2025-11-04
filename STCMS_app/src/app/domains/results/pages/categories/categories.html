@@ -1,18 +1,17 @@
 <section class="categories-section border-bottom border-1 p-3 bg-dark text-white">
   <div class="container">
-    <div class="d-flex justify-content-center bd-highlight">
-      <div class="d-flex align-items-center p-2 bd-highlight">
-        <i class="fa-solid fa-futbol fa-2x"></i> Football
+    <div class="d-flex justify-content-center bd-highlight flex-wrap">
+      @for (sport of sports; track $index) {
+      <div
+        class="d-flex align-items-center p-3 bd-highlight mx-2 category-item"
+        role="button"
+        (click)="selectSport(sport.value)"
+        [class.selected]="selectedSport() === sport.value"
+      >
+        <i class="fa-solid fa-2x me-2" [ngClass]="sport.icon"></i>
+        {{ sport.name }}
       </div>
-      <div class="d-flex align-items-center p-2 bd-highlight">
-        <i class="fa-solid fa-table-tennis-paddle-ball fa-2x"></i> Tennis
-      </div>
-      <div class="d-flex align-items-center p-2 bd-highlight">
-        <i class="fa-solid fa-basketball fa-2x"></i> Basketball
-      </div>
-      <div class="d-flex align-items-center p-2 bd-highlight">
-        <i class="fa-solid fa-person-biking fa-2x"></i> Cycling
-      </div>
+      }
     </div>
   </div>
 </section>

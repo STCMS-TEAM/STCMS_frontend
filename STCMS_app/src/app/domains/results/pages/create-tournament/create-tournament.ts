@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { Navbar } from '../../../../shared/components/navbar/navbar';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ResultsService } from '../../services/resuls';
+import { AuthService } from '../../../../core/auth/services/auth';
+import { TournamentForm } from '../../models/tournament';
 
 @Component({
   selector: 'app-create-tournament',
@@ -14,6 +15,7 @@ import { ResultsService } from '../../services/resuls';
 export class CreateTournament {
   private router = inject(Router);
   private resultService = inject(ResultsService);
+  private authService = inject(AuthService);
 
   tournamentForm = new FormGroup({
     name: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
@@ -30,18 +32,23 @@ export class CreateTournament {
       nonNullable: true,
       validators: [Validators.required],
     }),
+    sport: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
   });
 
   onSubmit() {
     if (this.tournamentForm.valid) {
       const formValue = this.tournamentForm.getRawValue();
 
-      const tournament: Tournament = {
+      const tournament: TournamentForm = {
         name: formValue.name,
         description: formValue.description,
         startDate: new Date(formValue.startDate), // convert string → Date
         endDate: new Date(formValue.endDate), // convert string → Date
         type: formValue.type,
+        sport: formValue.sport,
       };
 
       this.resultService.createTournament(tournament).subscribe({

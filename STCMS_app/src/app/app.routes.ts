@@ -5,6 +5,7 @@ import { Signup } from './domains/auth/signup/signup';
 import { Login } from './domains/auth/login/login';
 import { Result } from './domains/results/pages/result/result';
 import { CreateTournament } from './domains/results/pages/create-tournament/create-tournament';
+import { CreateTeam } from './domains/results/pages/create-team/create-team';
 export const routes: Routes = [
   {
     path: 'home',
@@ -30,5 +31,9 @@ export const routes: Routes = [
   {
     path: 'create-tournament',
     component: CreateTournament,
+  },
+  {
+    path: 'create-team',
+    component: CreateTeam,
   },
 ];
