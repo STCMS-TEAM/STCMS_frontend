@@ -1,9 +1,13 @@
 <section
-  class="register-section d-flex justify-content-center align-items-center min-vh-100 bg-dark"
+  class="register-section d-flex flex-column justify-content-center align-items-center bg-dark main-container p-5"
 >
   <div class="d-flex">
     <div class="d-flex">
-      <img src="assets/svg/signup.svg" class="w-75" alt="Sign up immage is missing" />
+      <img
+        src="assets/svg/signup.svg"
+        class="img-fluid w-75 d-none d-md-block"
+        alt="Sign up immage is missing"
+      />
     </div>
 
     <form class="d-flex flex-column" [formGroup]="registerForm" (ngSubmit)="onSubmit()">

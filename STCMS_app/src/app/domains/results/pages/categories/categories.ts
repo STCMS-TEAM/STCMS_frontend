@@ -15,11 +15,9 @@ export class Categories {
 
   sports = [
     { name: 'Football', icon: 'fa-futbol', value: 'soccer' },
-    { name: 'Tennis', icon: 'fa-table-tennis-paddle-ball', value: 'tennis' },
     { name: 'Basketball', icon: 'fa-basketball', value: 'basketball' },
-    { name: 'Cycling', icon: 'fa-person-biking', value: 'cycling' },
+    { name: 'Volleyball', icon: 'fa-solid fa-volleyball', value: 'volleyball' },
   ];
-
   // basketball is default sport that is loaded
   ngOnInit() {
     this.resultService.getTournamentsById('basketball').subscribe({

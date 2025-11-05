@@ -1,6 +1,4 @@
 import { Component, DestroyRef, inject } from '@angular/core';
-import { Navbar } from '../../../../shared/components/navbar/navbar';
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../../../../shared/services/user';
 import { User } from '../../../../shared/models/user';
@@ -10,7 +8,7 @@ import { Paginator } from '../../../../shared/components/paginator/paginator';
 
 @Component({
   selector: 'app-admin-dashboard',
-  imports: [Navbar, Paginator, CommonModule],
+  imports: [Paginator, CommonModule],
   templateUrl: './admin-dashboard.html',
   styleUrl: './admin-dashboard.css',
 })

@@ -15,7 +15,6 @@ import { TournamentForm } from '../../models/tournament';
 export class CreateTournament {
   private router = inject(Router);
   private resultService = inject(ResultsService);
-  private authService = inject(AuthService);
 
   tournamentForm = new FormGroup({
     name: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),

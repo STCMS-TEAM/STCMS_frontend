@@ -1,9 +1,11 @@
-<section class="categories-section border-bottom border-1 p-3 bg-dark text-white">
+<section class="categories-section border-bottom border-1 p-5 bg-dark text-white">
   <div class="container">
-    <div class="d-flex justify-content-center bd-highlight flex-wrap">
+    <div
+      class="d-flex flex-column flex-md-row justify-content-center align-items-center bd-highlight flex-wrap"
+    >
       @for (sport of sports; track $index) {
       <div
-        class="d-flex align-items-center p-3 bd-highlight mx-2 category-item"
+        class="category-item d-flex flex-column flex-md-row align-items-center justify-content-center p-3 gap-2"
         role="button"
         (click)="selectSport(sport.value)"
         [class.selected]="selectedSport() === sport.value"
