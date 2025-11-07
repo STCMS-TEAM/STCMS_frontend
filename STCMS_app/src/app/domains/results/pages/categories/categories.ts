@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { ResultsService } from '../../services/resuls';
-import { Tournament } from '../../models/tournament';
+import { Tournament } from '../../../../shared/models/tournament';
 
 @Component({
   selector: 'app-categories',

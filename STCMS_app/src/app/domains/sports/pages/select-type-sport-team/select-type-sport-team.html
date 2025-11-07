@@ -1,0 +1,39 @@
+<section
+  class="select-sport-team-section d-flex justify-content-center align-items-center bg-dark main-container text-center py-5"
+>
+  <div class="container">
+    <!-- Title + Subtitle -->
+    <div class="mb-5">
+      <h2 class="text-white fw-bold mb-3">Select a Sport for Your Team</h2>
+      <p class="text-secondary fs-5">
+        Choose your preferred sport below to start creating your team and join the competition.
+      </p>
+    </div>
+
+    <!-- Sport options -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-5">
+      <a
+        routerLink="/tournaments"
+        [queryParams]="{ sport: 'basketball' }"
+        class="text-decoration-none sport-option"
+      >
+        <img src="/assets/svg/basketball.svg" class="img-fluid" alt="basketball" />
+        <p class="text-white mt-3 fw-semibold">Basketball</p>
+      </a>
+
+      <a routerLink="/create-football-team" class="text-decoration-none">
+        <img src="/assets/svg/football.svg" class="img-fluid sport-img" alt="football" />
+        <p class="text-white mt-3 fw-semibold">Football</p>
+      </a>
+
+      <a
+        routerLink="/tournaments"
+        [queryParams]="{ sport: 'volleyball' }"
+        class="text-decoration-none sport-option"
+      >
+        <img src="/assets/svg/volleyball.svg" class="img-fluid" alt="volleyball" />
+        <p class="text-white mt-3 fw-semibold">Volleyball</p>
+      </a>
+    </div>
+  </div>
+</section>

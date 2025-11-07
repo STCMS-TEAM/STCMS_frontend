@@ -1,0 +1,93 @@
+<section
+  class="create-team-section d-flex justify-content-center align-items-center main-container bg-dark"
+>
+  <div class="container-fluid">
+    <div class="row align-items-center p-5">
+      <!-- Illustration -->
+      <div class="col-lg-4 d-flex justify-content-center mb-4 mb-lg-0">
+        <img src="assets/svg/team.svg" class="w-75" alt="Team creation image" />
+      </div>
+
+      <!-- Create Team Form -->
+      <div class="col-lg-8">
+        <form
+          class="bg-dark text-white p-4 rounded shadow border border-light border-opacity-25"
+          [formGroup]="createTeamForm"
+          (ngSubmit)="onSubmit()"
+        >
+          <h2 class="mb-3">Create Football Team</h2>
+          <p class="mb-4 text-secondary">
+            Register your football team to participate in the tournament
+          </p>
+
+          <!-- Team Name -->
+          <div class="mb-3">
+            <label for="teamName" class="form-label">Team Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="teamName"
+              formControlName="name"
+              placeholder="Enter your team name"
+            />
+          </div>
+
+          <!-- Tournament -->
+          <div class="mb-4">
+            <label for="tournament" class="form-label">Tournament</label>
+            <select class="form-select" id="tournament" formControlName="tournamentId">
+              <option value="" selected disabled>Select a tournament</option>
+              @for (tournament of tournaments(); track $index) {
+              <option [value]="tournament.id">{{ tournament.name }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- Players Section (split in two columns) -->
+          <div class="row">
+            <!-- Starting Players -->
+            <div class="col-md-6 mb-4" formArrayName="startingPlayers">
+              <label class="form-label text-white">Starting Players (11)</label>
+              @for (player of startingPlayers.controls; track $index) {
+              <div [formGroupName]="$index" class="mb-2 d-flex gap-2">
+                <input
+                  type="email"
+                  class="form-control"
+                  formControlName="email"
+                  placeholder="Enter player email"
+                />
+              </div>
+              }
+            </div>
+
+            <!-- Substitute Players -->
+            <div class="col-md-6 mb-4" formArrayName="substitutes">
+              <label class="form-label text-white">Substitute Players</label>
+              @for (sub of substitutes.controls; track $index) {
+              <div [formGroupName]="$index" class="mb-2 d-flex gap-2">
+                <input
+                  type="email"
+                  class="form-control"
+                  formControlName="email"
+                  placeholder="Enter substitute email"
+                />
+                <button type="button" class="btn btn-danger" (click)="removeSubstitute($index)">
+                  &times;
+                </button>
+              </div>
+              }
+              <button type="button" class="btn btn-outline-light mt-2" (click)="addSubstitute()">
+                + Add Substitute
+              </button>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary mb-3">Register Team</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

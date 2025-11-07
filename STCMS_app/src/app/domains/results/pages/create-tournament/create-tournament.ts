@@ -3,8 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ResultsService } from '../../services/resuls';
-import { AuthService } from '../../../../core/auth/services/auth';
-import { TournamentForm } from '../../models/tournament';
+import { TournamentForm } from '../../../../shared/models/tournament';
 
 @Component({
   selector: 'app-create-tournament',

@@ -1,11 +1,10 @@
 import { DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { User } from '../../../shared/models/user';
 import { AuthService } from '../../../core/auth/services/auth';
-import { createTeam, Tournament, TournamentForm } from '../models/tournament';
+import { createTeam, Tournament, TournamentForm } from '../../../shared/models/tournament';
 
 @Injectable({ providedIn: 'root' })
 export class ResultsService {
@@ -37,8 +36,20 @@ export class ResultsService {
     return this.http.get<Tournament[]>(`${this.baseUrl}?sport=${id}`);
   }
 
-  public getTournaments(): Observable<Tournament[]> {
-    return this.http.get<Tournament[]>(`${this.baseUrl}`);
+  getTournaments(filters?: { [key: string]: any }): Observable<Tournament[]> {
+    let params = new HttpParams();
+
+    // If filters exist, append them as query parameters
+    if (filters) {
+      Object.keys(filters).forEach((key) => {
+        if (filters[key] !== null && filters[key] !== undefined && filters[key] !== '') {
+          params = params.append(key, filters[key]);
+        }
+      });
+    }
+
+    // Send GET request with or without params
+    return this.http.get<Tournament[]>(this.baseUrl, { params });
   }
 
   // TEAM API

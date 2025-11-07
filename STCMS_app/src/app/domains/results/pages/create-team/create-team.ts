@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ResultsService } from '../../services/resuls';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { createTeam } from '../../models/tournament';
+import { createTeam } from '../../../../shared/models/tournament';
 
 @Component({
   selector: 'app-create-team',

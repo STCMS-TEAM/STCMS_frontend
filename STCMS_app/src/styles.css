@@ -41,7 +41,7 @@
   --color-accent-dark: #45a29e;
 
   /* SIZE */
-  --navbar-height: 72px;
+  --navbar-height: 122px;
 }
 
 @font-face {
@@ -106,4 +106,9 @@ body {
 
 .main-container {
   min-height: calc(100vh - var(--navbar-height)); /* 56px = default navbar height */
+}
+
+.hover-shadow-lg:hover {
+  box-shadow: 0 0.5rem 1rem rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
 }
