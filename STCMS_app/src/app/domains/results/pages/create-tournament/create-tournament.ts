@@ -52,7 +52,7 @@ export class CreateTournament {
       this.resultService.createTournament(tournament).subscribe({
         next: (res) => {
           console.log('✅ Tournament created successfully:', res);
-          this.router.navigate(['/tournaments']);
+          this.tournamentForm.reset();
         },
         error: (err) => {
           console.error('❌ Error creating tournament:', err);

@@ -25,7 +25,7 @@ export class CreateFootballTeam {
   });
 
   ngOnInit() {
-    this.resultService.getTournaments().subscribe({
+    this.resultService.getTournaments({ sport: 'soccer' }).subscribe({
       next: (res) => this.resultService.setTournaments(res),
       error: (err) => console.error(err),
     });

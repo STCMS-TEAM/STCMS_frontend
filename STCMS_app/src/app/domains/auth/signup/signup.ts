@@ -21,8 +21,8 @@ export class Signup {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     gender: new FormControl('', Validators.required),
-    birthDate: new FormControl('', [Validators.required, Validators.min(1)]),
-    phone_number: new FormControl('', [Validators.required, Validators.pattern(/^\d+$/)]),
+    birthDate: new FormControl('', Validators.required),
+    phone_number: new FormControl('', [Validators.required, Validators.pattern(/^[\d+\-\(\) ]+$/)]),
   });
 
   onSubmit() {
