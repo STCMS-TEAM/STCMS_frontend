@@ -37,19 +37,28 @@
           </div>
         </div>
         <div class="d-flex flex-column text-light">
+          @for(match of matchesOfTournament(); track $index) {
           <div class="d-flex justify-content-between border-bottom p-2">
-            <div class="d-flex align-items-center gap-2">
-              <div>21:05</div>
-              <div class="d-flex flex-column">
-                <div>Team A</div>
-                <div>Team B</div>
+
+              <div>{{match.startDate | date:'shortTime'}}</div>
+            
+
+              <div class="d-flex flex-column text-white">
+
+                <div>{{match.teams[0].name}}</div>
+                <div>{{match.teams[1].name}}</div>
+                <br />
               </div>
-            </div>
-            <div class="d-flex flex-column">
-              <div>0</div>
-              <div>1</div>
-            </div>
+
+            <div class="d-flex flex-column text-white">
+              <div>{{match.result.score[match.teams[0]._id!]}}</div>
+              <div>{{match.result.score[match.teams[1]._id!]}}</div>
+              
+            </div> 
           </div>
+            }
+
+
         </div>
       </div>
     </div>

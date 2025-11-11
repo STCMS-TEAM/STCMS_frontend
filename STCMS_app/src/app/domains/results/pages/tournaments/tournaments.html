@@ -1,11 +1,17 @@
 <section class="tournaments-section mt-3">
   <div class="container border border-2 rounded bg-dark text-white">
     @if (tournaments().length === 0) {
-    <p>No tournaments found for this sport.</p>
-    } @else { @for (tournament of tournaments(); track $index) {
-    <div class="border-bottom py-2 text-white">
-      <h5>{{ tournament.name }}</h5>
-    </div>
-    } }
+      <p>No tournaments found for this sport.</p>
+    } @else {
+      @for (tournament of tournaments(); track $index) {
+        <div
+          class="border-bottom py-2 "
+          (click)="selectTournament(tournament.name)"
+          [class.selected]="selectedTournament() === tournament.name">
+          <h5>{{ tournament.name }}</h5>
+        </div>
+      }
+    }
   </div>
 </section>
+
