@@ -54,6 +54,29 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
+# STCMSApp – Mobile Testing
+
+This guide explains how to serve your Angular app so it can be accessed from a mobile device on the same network.
+
+A custom script is added in package.json:
+
+"scripts": {
+  "start:mobile": "ng serve --host 0.0.0.0 --port 4200"
+}
+
+```bash
+npm run start:mobile
+```
+---
+
+## ⚡ Install Dependencies
+
+If not already done, install the project dependencies:
+
+```bash
+npm install
+```
+
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
