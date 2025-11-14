@@ -1,17 +1,27 @@
-<section class="tournaments-section mt-3">
-  <div class="container border border-2 rounded bg-dark text-white">
+<section class="tournaments-section mt-3 main-container">
+  <div class="container">
     @if (tournaments().length === 0) {
-      <p>No tournaments found for this sport.</p>
+    <p class="text-white text-center py-3">No tournaments found for this sport.</p>
     } @else {
+    <div class="row g-2">
       @for (tournament of tournaments(); track $index) {
+      <div class="col-12">
         <div
-          class="border-bottom py-2 "
+          class="card bg-dark text-white cursor-pointer border"
+          [class.border-primary]="selectedTournament() && selectedTournament().name === tournament.name && !isMobile()"
           (click)="selectTournament(tournament.name)"
-          [class.selected]="selectedTournament() === tournament.name">
-          <h5>{{ tournament.name }}</h5>
+          style="transition: background-color 0.2s"
+          [ngStyle]="{'background-color': selectedTournament() && selectedTournament().name === tournament.name ? '#0d6efd' : '#212529'}"
+        >
+          <div class="card-body py-2 d-flex align-items-center justify-content-between">
+            <h5 class="card-title mb-0">{{ tournament.name }}</h5>
+            <i class="fa fa-angle-right"></i>
+            <!-- Optional arrow icon -->
+          </div>
         </div>
+      </div>
       }
+    </div>
     }
   </div>
 </section>
-

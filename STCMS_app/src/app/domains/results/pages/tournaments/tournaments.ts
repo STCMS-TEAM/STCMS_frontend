@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, HostListener, inject, signal } from '@angular/core';
 import { ResultsService } from '../../services/resuls';
 import { CommonModule } from '@angular/common';
 
@@ -10,50 +10,42 @@ import { CommonModule } from '@angular/common';
 })
 export class Tournaments {
   private resultService = inject(ResultsService);
-
+  selectedSport = this.resultService.selectedSport;
   tournaments = this.resultService.tournaments;
+  selectedTournament = this.resultService.selectedTournament;
+  isMobile = signal(window.innerWidth < 768);
 
-  selectedTournament = signal<string>('default');
+  @HostListener('window:resize')
+  onResize() {
+    this.isMobile.set(window.innerWidth < 768);
+  }
 
   constructor() {
-    // Whenever tournaments signal changes, fetch teams for the first tournament
+    // Effect to log changes in selectedTournament
     effect(() => {
-      const tournaments = this.tournaments(); // <- reactive read
-      if (tournaments.length === 0) return;
-      this.selectedTournament.set(tournaments[1].name)
-
-      const firstTournamentId = tournaments[1]._id;
-
-      this.resultService.getAllTeamsByTournament(firstTournamentId).subscribe({
-        next: (res) => {
-     
-
-          this.resultService.setMatchesOfTournament(res);
-        },
-        error: (err) => console.log(err),
+      this.resultService.getTournamentsBySport(this.selectedSport()).subscribe((t) => {
+        this.tournaments.set(t);
+        if (t.length) {
+          this.resultService.toggleTournament(t[0]); // first tournament as default
+        }
       });
     });
   }
 
-
-
   selectTournament(tournamentName: string) {
-    this.selectedTournament.set(tournamentName);
     const tournaments = this.tournaments();
-      // Find the tournament object by name
-    const selected = tournaments.find(t => t.name === tournamentName);
+    // Find the tournament object by name
+    const selected = tournaments.find((t) => t.name === tournamentName);
 
     if (!selected?._id) {
       console.error('Tournament not found:', tournamentName);
       return;
     }
-    
-  this.resultService.getAllTeamsByTournament(selected._id).subscribe({
-    next: (res) => {
-      this.resultService.setMatchesOfTournament(res);
-    },
-    error: (err) => console.error('Failed to load teams', err),
-  });
-    
+    console.log('this is selected tournament: ', selected);
+    this.resultService.toggleTournament(selected);
+
+    if (this.isMobile()) {
+      this.resultService.toggleShowMatches();
+    }
   }
 }

@@ -1,66 +1,43 @@
-<section class="match-section p-2 bg-dark">
+<div class="match-section p-2 bg-dark">
   <div class="container rounded bg-dark">
-    <div class="d-flex justify-content-center gap-5">
-      <app-tournaments></app-tournaments>
-      <div class="d-flex flex-column bg-custom-primary border-dark rounded">
-        <div class="d-flex justify-content-center p-2">
-          <div
-            class="d-flex align-items-center px-3 border rounded mx-1 bg-secondary"
-            [class.bg-danger]="activeTab === 'All'"
-            (click)="setActive('All')"
-          >
-            <h5 class="m-0 text-white">All</h5>
-          </div>
-
-          <div
-            class="d-flex align-items-center px-3 border rounded mx-1"
-            [class.bg-danger]="activeTab === 'Live'"
-            (click)="setActive('Live')"
-          >
-            <h5 class="m-0 text-white">Live</h5>
-          </div>
-
-          <div
-            class="d-flex align-items-center px-3 border rounded mx-1"
-            [class.bg-danger]="activeTab === 'Concluded'"
-            (click)="setActive('Concluded')"
-          >
-            <h5 class="m-0 text-white">Concluded</h5>
-          </div>
-
-          <div
-            class="d-flex align-items-center px-3 border rounded mx-1"
-            [class.bg-danger]="activeTab === 'Scheduled'"
-            (click)="setActive('Scheduled')"
-          >
-            <h5 class="m-0 text-white">Scheduled</h5>
-          </div>
+    <div class="d-flex flex-column gap-2">
+      <!-- Tabs -->
+      <div class="d-flex flex-wrap justify-content-center gap-2 p-2">
+        @for (tab of tabs; track $index) {
+        <div
+          class="d-flex align-items-center px-3 py-2 rounded cursor-pointer text-white"
+          [class.bg-danger]="activeTab === tab"
+          [class.bg-secondary]="activeTab !== tab"
+          [class.fw-bold]="activeTab === tab"
+          (click)="setActive(tab)"
+        >
+          {{ tab }}
         </div>
-        <div class="d-flex flex-column text-light">
-          @for(match of matchesOfTournament(); track $index) {
-          <div class="d-flex justify-content-between border-bottom p-2">
+        }
+      </div>
 
-              <div>{{match.startDate | date:'shortTime'}}</div>
-            
+      <!-- Matches -->
+      <div class="d-flex flex-column gap-2">
+        @for(match of matchesOfTournament(); track $index) {
+        <div class="card bg-secondary text-white p-2">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex align-items-center text-center">
+              {{match.startDate | date:'shortTime'}}
+            </div>
 
-              <div class="d-flex flex-column text-white">
+            <div class="d-flex flex-column mx-2">
+              <div>{{match.teams[0].name}}</div>
+              <div>{{match.teams[1].name}}</div>
+            </div>
 
-                <div>{{match.teams[0].name}}</div>
-                <div>{{match.teams[1].name}}</div>
-                <br />
-              </div>
-
-            <div class="d-flex flex-column text-white">
+            <div class="d-flex flex-column text-white text-center">
               <div>{{match.result.score[match.teams[0]._id!]}}</div>
               <div>{{match.result.score[match.teams[1]._id!]}}</div>
-              
-            </div> 
+            </div>
           </div>
-            }
-
-
         </div>
+        }
       </div>
     </div>
   </div>
-</section>
+</div>

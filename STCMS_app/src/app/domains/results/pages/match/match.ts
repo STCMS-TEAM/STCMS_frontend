@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-match',
-  imports: [Tournaments, CommonModule],
+  imports: [CommonModule],
   templateUrl: './match.html',
   styleUrl: './match.css',
 })
@@ -13,17 +13,27 @@ export class Match {
   private resultService = inject(ResultsService);
 
   matchesOfTournament = this.resultService.matchesOfTournament;
+  selectedTournament = this.resultService.selectedTournament;
+  tabs = ['All', 'Live', 'Concluded', 'Scheduled'];
+
+  constructor() {
+    // Effect to log changes in matchesOfTournament
+    effect(() => {
+      if (!this.selectedTournament()?._id) {
+        return;
+      }
+      this.resultService.getAllTeamsByTournament(this.selectedTournament()._id).subscribe({
+        next: (res) => {
+          this.resultService.setMatchesOfTournament(res);
+          console.log(this.matchesOfTournament());
+        },
+        error: (err) => console.error('Failed to load teams', err),
+      });
+    });
+  }
 
   // track active tab
   activeTab: string = 'All';
-
-  constructor() {
-    // reactive effect to log whenever matches change
-    effect(() => {
-      const matches = this.matchesOfTournament(); // <- reactive read
-      // you could also update local state here if needed
-    });
-  }
 
   // set active tab on click
   setActive(tab: string) {

@@ -11,7 +11,7 @@ import { Tournament } from '../../../../shared/models/tournament';
 })
 export class Categories {
   private resultService = inject(ResultsService);
-  selectedSport = signal<string>('basketball');
+  selectedSport = this.resultService.selectedSport;
 
   sports = [
     { name: 'Football', icon: 'fa-futbol', value: 'soccer' },
@@ -19,26 +19,8 @@ export class Categories {
     { name: 'Volleyball', icon: 'fa-solid fa-volleyball', value: 'volleyball' },
   ];
   // basketball is default sport that is loaded
-  ngOnInit() {
-    this.resultService.getTournamentsById('basketball').subscribe({
-      next: (res) => {
-        this.resultService.setTournaments(res);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
 
   selectSport(sport: string) {
-    this.selectedSport.set(sport);
-    // Fetch tournaments for the selected sport
-    this.resultService.getTournamentsById(sport).subscribe({
-      next: (tournaments: Tournament[]) => {
-        // Share data with TournamentsComponent
-        this.resultService.setTournaments(tournaments);
-      },
-      error: (err) => console.error('Failed to load tournaments', err),
-    });
+    this.resultService.toggleSport(sport);
   }
 }
