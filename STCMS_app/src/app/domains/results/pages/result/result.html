@@ -2,12 +2,12 @@
 
 <section class="result-section p-2 bg-dark">
   <!-- Mobile -->
-  <div class="d-md-none">
+  <div class="d-md-none justify-content-center">
     @if (!showMatches()) {
     <app-tournaments></app-tournaments>
 
     } @else {
-    <button class="btn btn-secondary mb-2" (click)="backToTournaments()">← Back</button>
+    <button class="btn btn-secondary mb-2 " (click)="backToTournaments()">← Back</button>
     <app-match></app-match>
 
     }
