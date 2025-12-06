@@ -24,6 +24,27 @@ export class Signup {
     birthDate: new FormControl('', Validators.required),
     phone_number: new FormControl('', [Validators.required, Validators.pattern(/^[\d+\-\(\) ]+$/)]),
   });
+  get name() {
+    return this.registerForm.get('name');
+  }
+  get last_name() {
+    return this.registerForm.get('last_name');
+  }
+  get email() {
+    return this.registerForm.get('email');
+  }
+  get password() {
+    return this.registerForm.get('password');
+  }
+  get gender() {
+    return this.registerForm.get('gender');
+  }
+  get birthDate() {
+    return this.registerForm.get('birthDate');
+  }
+  get phone_number() {
+    return this.registerForm.get('phone_number');
+  }
 
   onSubmit() {
     console.log(this.registerForm.value);

@@ -18,6 +18,14 @@ export class Login {
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
   });
 
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
+  }
+
   onSubmit() {
     if (this.loginForm.valid) {
       console.log('Login submitted:', this.loginForm.value);

@@ -23,7 +23,11 @@
           id="name"
           formControlName="name"
           placeholder="Marco"
+          [class.is-invalid]="name?.invalid"
         />
+        <div class="invalid-feedback" *ngIf="name?.invalid">
+          Put a name, either if you are a son of Elon.
+      </div>
       </div>
 
       <!-- Last Name -->
@@ -35,7 +39,11 @@
           id="lastName"
           formControlName="last_name"
           placeholder="Favero"
+          [class.is-invalid]="last_name?.invalid"
         />
+        <div class="invalid-feedback" *ngIf="last_name?.invalid">
+          Are you a Brazilian player?
+      </div>
       </div>
 
       <!-- Email -->
@@ -47,7 +55,11 @@
           id="email"
           formControlName="email"
           placeholder="marco@gmail.com"
+          [class.is-invalid]="email?.invalid"
         />
+        <div class="invalid-feedback" *ngIf="email?.invalid">
+          Please provide a valid email address.
+      </div>
       </div>
 
       <!-- Password -->
@@ -59,8 +71,12 @@
           id="password"
           formControlName="password"
           placeholder="Enter your password"
+          [class.is-invalid]="password?.invalid"
         />
+        <div class="invalid-feedback" *ngIf="password?.invalid">
+          Password must be at least 6 characters long. </div>
       </div>
+
 
       <!-- Gender -->
       <div class="mb-3">
@@ -71,6 +87,9 @@
           <option value="female">Female</option>
           <option value="other">Other</option>
         </select>
+        <div class="invalid-feedback">
+      Please select a valid gender.
+    </div>
       </div>
 
       <!-- Age -->
@@ -82,7 +101,10 @@
           id="birthDate"
           formControlName="birthDate"
           placeholder="1998-04-12"
+          [class.is-invalid]="birthDate?.invalid"
         />
+        <div class="invalid-feedback" *ngIf="birthDate?.invalid">
+          You must be born to use this service. </div>
       </div>
 
       <!-- Phone Number -->
@@ -94,7 +116,11 @@
           id="phoneNumber"
           formControlName="phone_number"
           placeholder="1591827319"
+          [class.is-invalid]="phone_number?.invalid"
         />
+        <div class="invalid-feedback" *ngIf="phone_number?.invalid">
+          We are in 21st century, please provide a valid phone number.
+      </div>
       </div>
 
       <div class="text-center mt-3">

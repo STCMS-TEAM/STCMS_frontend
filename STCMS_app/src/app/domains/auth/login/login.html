@@ -16,14 +16,17 @@
 
       <!-- Email -->
       <div class="mb-3">
-        <label for="email" class="form-label text-white">Email address</label>
+        <label for="email" class="form-label text-white">Email</label>
         <input
           type="email"
           class="form-control"
           id="email"
           formControlName="email"
           placeholder="marco@gmail.com"
-        />
+          [class.is-invalid]="email?.invalid">
+          <div class="invalid-feedback" *ngIf="email?.invalid">
+          Put a valid email address.
+    </div>
       </div>
 
       <!-- Password -->
@@ -35,7 +38,10 @@
           id="password"
           formControlName="password"
           placeholder="Enter your password"
-        />
+          [class.is-invalid]="password?.invalid">
+          <div class="invalid-feedback" *ngIf="password?.invalid">
+          Put a password with at least 6 characters.
+    </div>
       </div>
 
       <div class="text-center mt-3">
