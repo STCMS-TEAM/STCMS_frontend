@@ -36,6 +36,32 @@ export class CreateTournament {
     }),
   });
 
+  get name() {
+    return this.tournamentForm.get('name');
+  }
+  
+  get description() {
+    return this.tournamentForm.get('description');
+  }
+  get startDate() {
+    return this.tournamentForm.get('startDate');
+  }
+
+  get endDate() {
+    return this.tournamentForm.get('endDate');
+  }
+  
+  get type() {
+    return this.tournamentForm.get('type');
+  }
+  
+  get sport() {
+    return this.tournamentForm.get('sport');
+  }
+  get typeTournament() {
+    return this.tournamentForm.get('type');
+  }
+
   onSubmit() {
     if (this.tournamentForm.valid) {
       const formValue = this.tournamentForm.getRawValue();
