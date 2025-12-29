@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 export class Match {
   private resultService = inject(ResultsService);
-
+  private Backup: any[] = [];
   matchesOfTournament = this.resultService.matchesOfTournament;
   selectedTournament = this.resultService.selectedTournament;
   tabs = ['All', 'Live', 'Concluded', 'Scheduled'];
@@ -25,6 +25,7 @@ export class Match {
       this.resultService.getAllTeamsByTournament(this.selectedTournament()._id).subscribe({
         next: (res) => {
           this.resultService.setMatchesOfTournament(res);
+          this.Backup = res;
           console.log(this.matchesOfTournament());
         },
         error: (err) => console.error('Failed to load teams', err),
@@ -38,5 +39,36 @@ export class Match {
   // set active tab on click
   setActive(tab: string) {
     this.activeTab = tab;
+    if (tab === 'Scheduled') {
+      // filter with pending status
+      const filtered = this.Backup.filter(
+        (match) => match.status === 'pending'
+      );
+      this.resultService.setMatchesOfTournament(filtered);
+    } 
+    else if (tab === 'Live') {
+      // filter with in_progress status
+      const filtered = this.Backup.filter(
+        (match) => match.status === 'in_progress'
+      );
+      this.resultService.setMatchesOfTournament(filtered);
+    }
+    else if (tab === 'Concluded') {
+      // filter with completed status
+      const filtered = this.Backup.filter(
+        (match) => match.status === 'completed'
+      );
+      this.resultService.setMatchesOfTournament(filtered);
+    }
+    else {
+      // show all matches
+      this.resultService.getAllTeamsByTournament(this.selectedTournament()._id).subscribe({
+        next: (res) => {
+          this.Backup = res;
+          this.resultService.setMatchesOfTournament(res);
+        },
+        error: (err) => console.error('Failed to load teams', err),
+      });
+    }
   }
 }

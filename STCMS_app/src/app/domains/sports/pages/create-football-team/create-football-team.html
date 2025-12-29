@@ -23,18 +23,26 @@
             id="teamName"
             formControlName="name"
             placeholder="Enter your team name"
+            [class.is-invalid]="name?.invalid"
           />
+          <div class="invalid-feedback" *ngIf="name?.invalid">
+            Please provide a valid team name.
+          </div>
         </div>
 
         <!-- Tournament -->
         <div class="mb-4">
           <label for="tournament" class="form-label">Tournament</label>
-          <select class="form-select" id="tournament" formControlName="tournamentId">
+          <select class="form-select" id="tournament" formControlName="tournamentId"
+          [class.is-invalid]="tournamentId?.invalid">
             <option value="" selected disabled>Select a tournament</option>
             @for (tournament of tournaments(); track $index) {
             <option [value]="tournament.id">{{ tournament.name }}</option>
             }
           </select>
+          <div class="invalid-feedback" *ngIf="tournamentId?.invalid">
+            Please select a tournament.
+          </div>
         </div>
 
         <!-- Players Section (split in two columns) -->
@@ -49,7 +57,11 @@
                 class="form-control"
                 formControlName="email"
                 placeholder="Enter player email"
+                [class.is-invalid]="emailsControls[$index].invalid"
               />
+              <div class="invalid-feedback" *ngIf="emailsControls[$index].invalid">
+                Please provide a valid email.
+              </div>
             </div>
             }
           </div>
@@ -64,7 +76,11 @@
                 class="form-control"
                 formControlName="email"
                 placeholder="Enter substitute email"
+                [class.is-invalid]="substituteEmailsControls[$index]?.invalid && substituteEmailsControls[$index]?.touched"
               />
+              <div class="invalid-feedback" *ngIf="substituteEmailsControls[$index]?.invalid && substituteEmailsControls[$index]?.touched">
+                Please provide a valid email or remove this optional player.
+              </div>
               <button type="button" class="btn btn-danger" (click)="removeSubstitute($index)">
                 &times;
               </button>

@@ -47,6 +47,20 @@ export class CreateFootballTeam {
     );
   }
 
+  get name() {
+    return this.createTeamForm.get('name');
+  }
+  
+  get tournamentId() {
+    return this.createTeamForm.get('tournamentId');
+  } 
+  get emailsControls() {
+    return this.startingPlayers.controls;
+  }
+  get substituteEmailsControls() {
+    return this.substitutes.controls;
+  }
+
   addSubstitute() {
     if (this.substitutes.length < 7) {
       // ✅ limit to 7 substitutes

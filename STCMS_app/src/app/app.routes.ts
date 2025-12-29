@@ -43,4 +43,8 @@ export const routes: Routes = [
     path: 'select-type-sport-team',
     component: SelectTypeSportTeam,
   },
+  {
+    path: 'create-team',
+    component: CreateFootballTeam,
+  }
 ];
