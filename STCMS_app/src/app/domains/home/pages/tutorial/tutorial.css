@@ -1,0 +1,8 @@
+.tutorial {
+  max-width: 800px;
+}
+
+.tutorial .list-group-item {
+  border-color: #e9ecef;
+}
+

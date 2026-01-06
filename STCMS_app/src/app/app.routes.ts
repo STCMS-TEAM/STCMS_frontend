@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { Homepage } from '../app/domains/home/pages/homepage/homepage';
+import { Tutorial } from './domains/home/pages/tutorial/tutorial';
 import { AdminDashboard } from './domains/admin/pages/admin-dashboard/admin-dashboard';
 import { Signup } from './domains/auth/signup/signup';
 import { Login } from './domains/auth/login/login';
@@ -12,6 +13,10 @@ export const routes: Routes = [
   {
     path: 'home',
     component: Homepage,
+  },
+  {
+    path: 'tutorial',
+    component: Tutorial,
   },
   {
     path: 'admin',
