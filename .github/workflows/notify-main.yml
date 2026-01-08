@@ -13,5 +13,5 @@ jobs:
           curl -X POST \
           -H "Authorization: token ${{ secrets.MONO_TOKEN }}" \
           -H "Accept: application/vnd.github.v3+json" \
-          https://github.com/tomislav98/STCMS_project.git \
+          https://github.com/tomislav98/STCMS_project.git\dispatches \
           -d '{"event_type": "trigger-build"}'
