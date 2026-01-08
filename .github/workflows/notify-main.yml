@@ -11,7 +11,7 @@ jobs:
       - name: Send signal to Main Repo
         run: |
           curl -X POST \
-          -H "Authorization: token ${{ secrets.MY_GITHUB_TOKEN }}" \
+          -H "Authorization: token ${{ secrets.MONO_TOKEN }}" \
           -H "Accept: application/vnd.github.v3+json" \
           https://github.com/tomislav98/STCMS_project.git \
           -d '{"event_type": "trigger-build"}'
