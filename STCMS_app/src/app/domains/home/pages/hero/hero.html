@@ -88,7 +88,7 @@
           Follow your tournament standings in real time — track scores, view rankings, and watch the
           competition unfold.
         </p>
-        <a href="#" class="btn btn-light mt-3"><i class="bi bi-caret-right"></i> Read More</a>
+        <a routerLink="/result" class="btn btn-light mt-3"><i class="bi bi-caret-right"></i> View Results</a>
       </div>
     </div>
   </div>
@@ -123,16 +123,12 @@
             data-bs-toggle="collapse"
             data-bs-target="#question-one"
           >
-            Where exactly are you located?
+            How do I create a tournament?
           </button>
         </h2>
         <div id="question-one" class="accordion-collapse collapse" data-bs-parent="#questions">
           <div class="accordion-body">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam beatae fuga animi
-            distinctio perspiciatis adipisci velit maiores totam tempora accusamus modi explicabo
-            accusantium consequatur, praesentium rem quisquam molestias at quos vero. Officiis ad
-            velit doloremque at. Dignissimos praesentium necessitatibus natus corrupti cum
-            consequatur aliquam! Minima molestias iure quam distinctio velit.
+            To create a tournament, click on "Create Tournaments" from the home page or navigate to the Create Tournament page. Fill in the tournament details including name, description, start and end dates, select the tournament type (Single Elimination, Double Elimination, or Round Robin), and choose the sport. Once you submit the form, your tournament will be created and you can start adding teams and players.
           </div>
         </div>
       </div>
@@ -145,16 +141,12 @@
             data-bs-toggle="collapse"
             data-bs-target="#question-two"
           >
-            How much does it cost to attend?
+            How can I join an existing tournament?
           </button>
         </h2>
         <div id="question-two" class="accordion-collapse collapse" data-bs-parent="#questions">
           <div class="accordion-body">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam beatae fuga animi
-            distinctio perspiciatis adipisci velit maiores totam tempora accusamus modi explicabo
-            accusantium consequatur, praesentium rem quisquam molestias at quos vero. Officiis ad
-            velit doloremque at. Dignissimos praesentium necessitatibus natus corrupti cum
-            consequatur aliquam! Minima molestias iure quam distinctio velit.
+            You can browse available tournaments by clicking on "Join Tournament" or "View tournaments" from the home page. This will take you to the tournaments page where you can filter tournaments by sport (Soccer, Basketball, or Volleyball). Select a tournament to view its details, matches, and standings. To participate, you'll need to register a team for that tournament.
           </div>
         </div>
       </div>
@@ -167,16 +159,12 @@
             data-bs-toggle="collapse"
             data-bs-target="#question-three"
           >
-            What do I need to Know?
+            How do I register a team?
           </button>
         </h2>
         <div id="question-three" class="accordion-collapse collapse" data-bs-parent="#questions">
           <div class="accordion-body">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam beatae fuga animi
-            distinctio perspiciatis adipisci velit maiores totam tempora accusamus modi explicabo
-            accusantium consequatur, praesentium rem quisquam molestias at quos vero. Officiis ad
-            velit doloremque at. Dignissimos praesentium necessitatibus natus corrupti cum
-            consequatur aliquam! Minima molestias iure quam distinctio velit.
+            To register a team, go to "Manage Players & Teams" from the home page or use the "Create Team" option in the navigation menu (when logged in). Select the sport for your team, then fill in the team name and add player email addresses. You can add starting players and substitutes. Once your team is created, you can join tournaments that match your team's sport.
           </div>
         </div>
       </div>
@@ -189,38 +177,12 @@
             data-bs-toggle="collapse"
             data-bs-target="#question-four"
           >
-            How Do I sign up?
+            How do I view tournament results and standings?
           </button>
         </h2>
         <div id="question-four" class="accordion-collapse collapse" data-bs-parent="#questions">
           <div class="accordion-body">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam beatae fuga animi
-            distinctio perspiciatis adipisci velit maiores totam tempora accusamus modi explicabo
-            accusantium consequatur, praesentium rem quisquam molestias at quos vero. Officiis ad
-            velit doloremque at. Dignissimos praesentium necessitatibus natus corrupti cum
-            consequatur aliquam! Minima molestias iure quam distinctio velit.
-          </div>
-        </div>
-      </div>
-      <!-- Item 5 -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#question-five"
-          >
-            Do you help me find a job?
-          </button>
-        </h2>
-        <div id="question-five" class="accordion-collapse collapse" data-bs-parent="#questions">
-          <div class="accordion-body">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam beatae fuga animi
-            distinctio perspiciatis adipisci velit maiores totam tempora accusamus modi explicabo
-            accusantium consequatur, praesentium rem quisquam molestias at quos vero. Officiis ad
-            velit doloremque at. Dignissimos praesentium necessitatibus natus corrupti cum
-            consequatur aliquam! Minima molestias iure quam distinctio velit.
+            Click on "Track Live Results" or "View Results" to see all available tournaments. Select a sport category and then choose a tournament to view its matches. You can filter matches by status: All, Live (in progress), Concluded (completed), or Scheduled (upcoming). The results page shows match scores, team standings, and tournament progress in real-time.
           </div>
         </div>
       </div>
@@ -238,11 +200,11 @@
 
     <!-- Quick Links -->
     <div class="mb-4">
-      <a href="#" class="text-white mx-2">Home</a> |
-      <a href="#" class="text-white mx-2">Tournaments</a> |
-      <a href="#" class="text-white mx-2">Teams</a> |
-      <a href="#" class="text-white mx-2">Players</a> |
-      <a href="#" class="text-white mx-2">Contact</a>
+      <a routerLink="/home" class="text-white mx-2">Home</a> |
+      <a routerLink="/result" class="text-white mx-2">Tournaments</a> |
+      <a routerLink="/select-type-sport-team" class="text-white mx-2">Teams</a> |
+      <a routerLink="/select-type-sport-team" class="text-white mx-2">Players</a> |
+      <a href="#questions" class="text-white mx-2">Contact</a>
     </div>
 
     <!-- Contact Info -->
