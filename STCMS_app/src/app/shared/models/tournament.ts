@@ -1,8 +1,8 @@
 export interface TournamentForm {
   name: string;
   description: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   type: string;
   sport: string;
 }

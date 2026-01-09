@@ -69,8 +69,8 @@ export class CreateTournament {
       const tournament: TournamentForm = {
         name: formValue.name,
         description: formValue.description,
-        startDate: new Date(formValue.startDate), // convert string → Date
-        endDate: new Date(formValue.endDate), // convert string → Date
+        startDate: formValue.startDate, // convert string → Date
+        endDate: formValue.endDate, // convert string → Date
         type: formValue.type,
         sport: formValue.sport,
       };
@@ -78,7 +78,7 @@ export class CreateTournament {
       this.resultService.createTournament(tournament).subscribe({
         next: (res) => {
           console.log('✅ Tournament created successfully:', res);
-          this.tournamentForm.reset();
+          this.router.navigate(['/result']);
         },
         error: (err) => {
           console.error('❌ Error creating tournament:', err);
