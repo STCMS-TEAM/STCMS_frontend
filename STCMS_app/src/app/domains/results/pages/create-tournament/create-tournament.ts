@@ -82,6 +82,7 @@ export class CreateTournament {
         },
         error: (err) => {
           console.error('❌ Error creating tournament:', err);
+          alert('Error creating tournament, please try again.');
         },
       });
     } else {

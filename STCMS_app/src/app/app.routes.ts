@@ -8,6 +8,7 @@ import { Result } from './domains/results/pages/result/result';
 import { CreateTournament } from './domains/results/pages/create-tournament/create-tournament';
 import { CreateFootballTeam } from './domains/sports/pages/create-football-team/create-football-team';
 import { SelectTypeSportTeam } from './domains/sports/pages/select-type-sport-team/select-type-sport-team';
+import {About} from './domains/about/about';
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
@@ -51,5 +52,9 @@ export const routes: Routes = [
   {
     path: 'create-team',
     component: CreateFootballTeam,
+  },
+  {
+    path: 'aboutus',
+    component: About,
   }
 ];
