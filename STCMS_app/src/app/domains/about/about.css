@@ -1,0 +1,16 @@
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+.scrollspy-example {
+  height: 70vh;
+  overflow-y: auto;
+  max-height : 600px;
+}
+.page {
+  min-height: 100vh;
+}
+
+.scrollspy-example {
+  overflow-y: auto;
+}
