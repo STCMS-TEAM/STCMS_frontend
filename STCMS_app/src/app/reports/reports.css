@@ -1,0 +1,29 @@
+.carousel {
+  max-width: 100%;
+  margin: 30px;
+  border-radius : 5px; 
+}
+#carouselExampleIndicators {
+  min-height: 400px;
+  padding : 5%; 
+  border-radius : 5px;
+}
+
+.carousel-item {
+  height: 100%;
+  border-radius: 5px;
+}
+
+.carousel-item img {
+  max-height: 600px;
+  object-fit: cover;
+}
+
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: auto;
+  padding: 10px;
+  margin: 50px;
+  font-size: medium;
+  border-radius: 5px;
+}

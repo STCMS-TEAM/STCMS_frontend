@@ -9,6 +9,7 @@ import { CreateTournament } from './domains/results/pages/create-tournament/crea
 import { CreateFootballTeam } from './domains/sports/pages/create-football-team/create-football-team';
 import { SelectTypeSportTeam } from './domains/sports/pages/select-type-sport-team/select-type-sport-team';
 import {About} from './domains/about/about';
+import { Reports } from './reports/reports';
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
@@ -56,5 +57,9 @@ export const routes: Routes = [
   {
     path: 'aboutus',
     component: About,
+  },
+  {
+    path: 'reports',
+    component: Reports,
   }
 ];
