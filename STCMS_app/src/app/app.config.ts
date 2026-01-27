@@ -4,7 +4,7 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { ChevronDown, LucideAngularModule } from 'lucide-angular';
 import { MoveRight } from 'lucide-angular';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -16,7 +16,13 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    provideRouter(
+      routes,
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'top',
+        anchorScrolling: 'enabled',
+      }),
+    ),
     importProvidersFrom(LucideAngularModule.pick({ MoveRight, ChevronDown })),
     provideHttpClient(withInterceptors([authInterceptor])),
   ],

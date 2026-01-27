@@ -10,11 +10,11 @@
 
     <!-- Quick Links -->
     <div class="mb-4">
-      <a routerLink="/home" class="text-white mx-2">Home</a> |
-      <a routerLink="/result" class="text-white mx-2">Tournaments</a> |
-      <a routerLink="/select-type-sport-team" class="text-white mx-2">Teams</a> |
-      <a routerLink="/select-type-sport-team" class="text-white mx-2">Players</a> |
-      <a href="#questions" class="text-white mx-2">Contact</a>
+      <a routerLink="/home" (click)="scrollTop()" class="text-white mx-2">Home</a> |
+      <a routerLink="/result" (click)="scrollTop()" class="text-white mx-2">Tournaments</a> |
+      <a routerLink="/select-type-sport-team" (click)="scrollTop()" class="text-white mx-2">Teams</a> |
+      <a routerLink="/select-type-sport-team" (click)="scrollTop()" class="text-white mx-2">Players</a> |
+      <a routerLink="/home" fragment="questions" class="text-white mx-2">Contact</a>
     </div>
 
     <!-- Contact Info -->
@@ -36,7 +36,7 @@
     <p class="lead mb-0">&copy; 2025 Tournament Hub. All rights reserved.</p>
 
     <!-- Back to top button -->
-    <a href="#" class="position-absolute bottom-0 end-0 p-5">
+    <a href="#" (click)="scrollTop($event)" class="position-absolute bottom-0 end-0 p-5">
       <i class="bi bi-arrow-up-circle h1"></i>
     </a>
   </div>
