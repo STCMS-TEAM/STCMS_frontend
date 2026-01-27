@@ -15,6 +15,10 @@ export class Navbar {
   isMenuOpen = signal(false); // this should be used for profile
   isAdmin = signal(false);
 
+  scrollTop() {
+    window.scrollTo({ top: 0, left: 0 });
+  }
+
   logout() {
     this.authService.logout();
     this.isMenuOpen.set(false);
