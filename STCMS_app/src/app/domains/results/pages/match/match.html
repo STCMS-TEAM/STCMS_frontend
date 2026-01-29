@@ -1,7 +1,6 @@
 <div class="match-section p-2 bg-dark">
   <div class="container rounded bg-dark">
     <div class="d-flex flex-column gap-2">
-      <!-- Tabs -->
       <div class="d-flex flex-wrap justify-content-center gap-2 p-2">
         @for (tab of tabs; track $index) {
         <div
@@ -16,7 +15,6 @@
         }
       </div>
 
-      <!-- Matches -->
       <div class="d-flex flex-column gap-2">
         @for(match of matchesOfTournament(); track $index) {
         <div class="card bg-secondary text-white p-2">

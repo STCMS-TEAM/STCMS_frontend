@@ -30,42 +30,34 @@ export class ResultsService {
     this._selectedTournament.set(tournament);
   }
 
-  // Signal holds the tournaments array reactively
   tournaments = signal<Tournament[]>([]);
-  // Signal holds the matches array reactively
   matchesOfTournament = signal<Match[]>([]);
 
-  // Setter method to update the signal
   setTournaments(tournaments: Tournament[]) {
     this.tournaments.set(tournaments);
   }
 
   setMatchesOfTournament(matches: Match[] | any) {
-    // Extract array from response if it's an object with 'matches' property
     let matchesArray: Match[] = [];
     
     if (Array.isArray(matches)) {
       matchesArray = matches;
     } else if (matches && typeof matches === 'object') {
-      // Try to extract from common response formats
       matchesArray = matches.matches || matches.data || matches.items || [];
     }
     
-    // Ensure it's always an array
     if (!Array.isArray(matchesArray)) {
-      console.warn('⚠️ setMatchesOfTournament: matchesArray is not an array:', matchesArray);
+      console.warn('setMatchesOfTournament: matchesArray is not an array:', matchesArray);
       matchesArray = [];
     }
     
     this.matchesOfTournament.set(matchesArray);
   }
 
-  // Optional helper to clear it
   clearTournaments() {
     this.tournaments.set([]);
   }
 
-  // TOURNAMENT API
   public createTournament(tournament: TournamentForm): Observable<TournamentForm> {
     return this.http.post<TournamentForm>(`${this.baseUrl}`, tournament);
   }
@@ -80,7 +72,6 @@ export class ResultsService {
   getTournaments(filters?: { [key: string]: any }): Observable<Tournament[]> {
     let params = new HttpParams();
 
-    // If filters exist, append them as query parameters
     if (filters) {
       Object.keys(filters).forEach((key) => {
         if (filters[key] !== null && filters[key] !== undefined && filters[key] !== '') {
@@ -89,11 +80,8 @@ export class ResultsService {
       });
     }
 
-    // Send GET request with or without params
     return this.http.get<Tournament[]>(this.baseUrl, { params });
   }
-
-  // TEAM API
 
   public createTeam(id: string, team: createTeam): Observable<createTeam> {
     return this.http.post<createTeam>(`${this.baseUrl}/${id}/teams`, team);

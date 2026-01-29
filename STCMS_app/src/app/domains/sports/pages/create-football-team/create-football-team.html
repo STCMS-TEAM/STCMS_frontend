@@ -3,7 +3,6 @@
 >
   <div class="container-fluid">
     <div class="row align-items-center p-5">
-      <!-- Create Team Form -->
       <form
         class="bg-dark text-white p-4 rounded shadow border border-light border-opacity-25"
         [formGroup]="createTeamForm"
@@ -14,7 +13,6 @@
           Register your football team to participate in the tournament
         </p>
 
-        <!-- Team Name -->
         <div class="mb-3">
           <label for="teamName" class="form-label">Team Name</label>
           <input
@@ -30,7 +28,6 @@
           </div>
         </div>
 
-        <!-- Tournament -->
         <div class="mb-4">
           <label for="tournament" class="form-label">Tournament</label>
           <select class="form-select" id="tournament" formControlName="tournamentId"
@@ -45,9 +42,7 @@
           </div>
         </div>
 
-        <!-- Players Section (split in two columns) -->
         <div class="row">
-          <!-- Starting Players -->
           <div class="col-md-6 mb-4" formArrayName="startingPlayers">
             <label class="form-label text-white">Starting Players (11)</label>
             @for (player of startingPlayers.controls; track $index) {
@@ -66,7 +61,6 @@
             }
           </div>
 
-          <!-- Substitute Players -->
           <div class="col-md-6 mb-4" formArrayName="substitutes">
             <label class="form-label text-white">Substitute Players</label>
             @for (sub of substitutes.controls; track $index) {
@@ -92,7 +86,6 @@
           </div>
         </div>
 
-        <!-- Submit -->
         <div class="text-center mt-3">
           <button type="submit" class="btn btn-primary mb-3">Register Team</button>
         </div>
