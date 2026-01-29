@@ -40,8 +40,24 @@ export class ResultsService {
     this.tournaments.set(tournaments);
   }
 
-  setMatchesOfTournament(matches: Match[]) {
-    this.matchesOfTournament.set(matches);
+  setMatchesOfTournament(matches: Match[] | any) {
+    // Extract array from response if it's an object with 'matches' property
+    let matchesArray: Match[] = [];
+    
+    if (Array.isArray(matches)) {
+      matchesArray = matches;
+    } else if (matches && typeof matches === 'object') {
+      // Try to extract from common response formats
+      matchesArray = matches.matches || matches.data || matches.items || [];
+    }
+    
+    // Ensure it's always an array
+    if (!Array.isArray(matchesArray)) {
+      console.warn('⚠️ setMatchesOfTournament: matchesArray is not an array:', matchesArray);
+      matchesArray = [];
+    }
+    
+    this.matchesOfTournament.set(matchesArray);
   }
 
   // Optional helper to clear it

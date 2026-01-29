@@ -37,7 +37,7 @@
           [class.is-invalid]="tournamentId?.invalid">
             <option value="" selected disabled>Select a tournament</option>
             @for (tournament of tournaments(); track $index) {
-            <option [value]="tournament.id">{{ tournament.name }}</option>
+            <option [value]="tournament._id || tournament.id">{{ tournament.name }}</option>
             }
           </select>
           <div class="invalid-feedback" *ngIf="tournamentId?.invalid">
