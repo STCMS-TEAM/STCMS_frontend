@@ -17,12 +17,10 @@ export class Match {
   tabs = ['All', 'Live', 'Concluded', 'Scheduled'];
 
   isCreator = computed(() => {
-    const user = this.authService.user() as { _id?: string; id?: string } | null;
     const tour = this.selectedTournament();
-    if (!tour?.createdBy || !user) return false;
-    const creatorId = (tour.createdBy as any)._id ?? (tour.createdBy as any).id;
-    const userId = user._id ?? user.id;
-    return !!creatorId && !!userId && String(creatorId) === String(userId);
+    const creatorId = tour?.createdBy ? (tour.createdBy as any)._id ?? (tour.createdBy as any).id : null;
+    const currentUserId = this.authService.userId();
+    return !!creatorId && !!currentUserId && String(creatorId) === String(currentUserId);
   });
 
   canShowCreateMatch = computed(() => false);
@@ -30,11 +28,7 @@ export class Match {
   teamsOfTournament = signal<any[]>([]);
   deleteTournamentLoading = signal(false);
 
-  canShowManagement = computed(() => {
-    const tour = this.selectedTournament();
-    const hasTournament = !!(tour?._id ?? tour?.id);
-    return this.authService.isAuth() && hasTournament;
-  });
+  canShowManagement = this.isCreator;
   createTeam1Id = signal<string>('');
   createTeam2Id = signal<string>('');
   createStartDate = signal<string>('');
@@ -55,7 +49,6 @@ export class Match {
     effect(() => {
       const tour = this.selectedTournament();
       const tournamentId = tour?._id ?? tour?.id;
-      const creator = this.isCreator();
       if (!tournamentId) {
         this.resultService.setMatchesOfTournament([]);
         this.teamsOfTournament.set([]);
@@ -68,17 +61,13 @@ export class Match {
         },
         error: () => this.resultService.setMatchesOfTournament([]),
       });
-      if (creator) {
-        this.resultService.getTeamsByTournament(tournamentId).subscribe({
-          next: (teams: any) => {
-            const list = Array.isArray(teams) ? teams : (teams?.data ?? teams?.teams ?? []);
-            this.teamsOfTournament.set(list);
-          },
-          error: () => this.teamsOfTournament.set([]),
-        });
-      } else {
-        this.teamsOfTournament.set([]);
-      }
+      this.resultService.getTeamsByTournament(tournamentId).subscribe({
+        next: (teams: any) => {
+          const list = Array.isArray(teams) ? teams : (teams?.data ?? teams?.teams ?? []);
+          this.teamsOfTournament.set(list);
+        },
+        error: () => this.teamsOfTournament.set([]),
+      });
     });
   }
 
