@@ -1,6 +1,7 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect, inject, computed, signal } from '@angular/core';
 import { Tournaments } from '../tournaments/tournaments';
 import { ResultsService } from '../../services/resuls';
+import { AuthService } from '../../../../core/auth/services/auth';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,64 +12,170 @@ import { CommonModule } from '@angular/common';
 })
 export class Match {
   private resultService = inject(ResultsService);
-  private Backup: any[] = [];
-  matchesOfTournament = this.resultService.matchesOfTournament;
+  private authService = inject(AuthService);
   selectedTournament = this.resultService.selectedTournament;
   tabs = ['All', 'Live', 'Concluded', 'Scheduled'];
 
+  isCreator = computed(() => {
+    const user = this.authService.user() as { _id?: string; id?: string } | null;
+    const tour = this.selectedTournament();
+    if (!tour?.createdBy || !user) return false;
+    const creatorId = (tour.createdBy as any)._id ?? (tour.createdBy as any).id;
+    const userId = user._id ?? user.id;
+    return !!creatorId && !!userId && String(creatorId) === String(userId);
+  });
+
+  canShowCreateMatch = computed(() => false);
+
+  teamsOfTournament = signal<any[]>([]);
+  deleteTournamentLoading = signal(false);
+
+  canShowManagement = computed(() => {
+    const tour = this.selectedTournament();
+    const hasTournament = !!(tour?._id ?? tour?.id);
+    return this.authService.isAuth() && hasTournament;
+  });
+  createTeam1Id = signal<string>('');
+  createTeam2Id = signal<string>('');
+  createStartDate = signal<string>('');
+  createMatchLoading = signal(false);
+  createMatchError = signal<string | null>(null);
+
+  matchesOfTournament = computed(() => {
+    const list = this.resultService.matchesOfTournament() ?? [];
+    const tab = this.activeTab;
+    if (tab === 'All') return list;
+    if (tab === 'Scheduled') return list.filter((m: any) => m?.status === 'pending');
+    if (tab === 'Live') return list.filter((m: any) => m?.status === 'in_progress');
+    if (tab === 'Concluded') return list.filter((m: any) => m?.status === 'completed');
+    return list;
+  });
+
   constructor() {
-    // Effect to log changes in matchesOfTournament
     effect(() => {
-      if (!this.selectedTournament()?._id) {
+      const tour = this.selectedTournament();
+      const tournamentId = tour?._id ?? tour?.id;
+      const creator = this.isCreator();
+      if (!tournamentId) {
+        this.resultService.setMatchesOfTournament([]);
+        this.teamsOfTournament.set([]);
         return;
       }
-      this.resultService.getAllTeamsByTournament(this.selectedTournament()._id).subscribe({
-        next: (res) => {
-          this.resultService.setMatchesOfTournament(res);
-          this.Backup = res;
-          console.log(this.matchesOfTournament());
+      this.resultService.getAllTeamsByTournament(tournamentId).subscribe({
+        next: (res: any) => {
+          const raw = Array.isArray(res) ? res : (res?.data ?? res?.matches ?? res?.items ?? []);
+          this.resultService.setMatchesOfTournament(Array.isArray(raw) ? raw : []);
         },
-        error: (err) => console.error('Failed to load teams', err),
+        error: () => this.resultService.setMatchesOfTournament([]),
       });
+      if (creator) {
+        this.resultService.getTeamsByTournament(tournamentId).subscribe({
+          next: (teams: any) => {
+            const list = Array.isArray(teams) ? teams : (teams?.data ?? teams?.teams ?? []);
+            this.teamsOfTournament.set(list);
+          },
+          error: () => this.teamsOfTournament.set([]),
+        });
+      } else {
+        this.teamsOfTournament.set([]);
+      }
     });
   }
 
-  // track active tab
   activeTab: string = 'All';
 
-  // set active tab on click
+  getScore(match: any, teamIndex: number): string {
+    if (!match?.result?.score || !match?.teams?.length || match.teams.length <= teamIndex) return '-';
+    const team = match.teams[teamIndex];
+    const id = team?._id ?? team?.id;
+    if (id == null) return '-';
+    const val = match.result.score[id] ?? match.result.score[String(id)];
+    return val != null ? String(val) : '-';
+  }
+
   setActive(tab: string) {
     this.activeTab = tab;
-    if (tab === 'Scheduled') {
-      // filter with pending status
-      const filtered = this.Backup.filter(
-        (match) => match.status === 'pending'
-      );
-      this.resultService.setMatchesOfTournament(filtered);
-    } 
-    else if (tab === 'Live') {
-      // filter with in_progress status
-      const filtered = this.Backup.filter(
-        (match) => match.status === 'in_progress'
-      );
-      this.resultService.setMatchesOfTournament(filtered);
+  }
+
+  onTeam1Change(value: string) {
+    this.createTeam1Id.set(value);
+    this.createMatchError.set(null);
+  }
+
+  onTeam2Change(value: string) {
+    this.createTeam2Id.set(value);
+    this.createMatchError.set(null);
+  }
+
+  onStartDateChange(value: string) {
+    this.createStartDate.set(value);
+    this.createMatchError.set(null);
+  }
+
+  deleteTournamentConfirm() {
+    const tour = this.selectedTournament();
+    const id = tour?._id ?? tour?.id;
+    if (!id) return;
+    if (!confirm('Delete this tournament? This cannot be undone.')) return;
+    this.deleteTournamentLoading.set(true);
+    this.resultService.deleteTournament(id).subscribe({
+      next: () => {
+        this.deleteTournamentLoading.set(false);
+        this.refreshTournamentsAndClearSelection();
+      },
+      error: (err: any) => {
+        this.deleteTournamentLoading.set(false);
+        alert(err?.error?.message ?? 'Failed to delete tournament.');
+      },
+    });
+  }
+
+  refreshTournamentsAndClearSelection() {
+    const sport = this.resultService.selectedSport();
+    this.resultService.getTournamentsBySport(sport).subscribe({
+      next: (res: any) => {
+        const raw = Array.isArray(res) ? res : (res?.data ?? res?.items ?? []);
+        const list = Array.isArray(raw) ? raw.map((t: any) => ({ ...t, matches: [] })) : [];
+        this.resultService.setTournaments(list);
+        this.resultService.toggleTournament(null as any);
+      },
+      error: () => this.resultService.toggleTournament(null as any),
+    });
+  }
+
+  createMatchSubmit() {
+    const tour = this.selectedTournament();
+    const tournamentId = tour?._id ?? tour?.id;
+    const team1 = this.createTeam1Id();
+    const team2 = this.createTeam2Id();
+    const startDate = this.createStartDate();
+    if (!tournamentId || !team1 || !team2 || !startDate) {
+      this.createMatchError.set('Please select both teams and a date.');
+      return;
     }
-    else if (tab === 'Concluded') {
-      // filter with completed status
-      const filtered = this.Backup.filter(
-        (match) => match.status === 'completed'
-      );
-      this.resultService.setMatchesOfTournament(filtered);
+    if (team1 === team2) {
+      this.createMatchError.set('Please select two different teams.');
+      return;
     }
-    else {
-      // show all matches
-      this.resultService.getAllTeamsByTournament(this.selectedTournament()._id).subscribe({
-        next: (res) => {
-          this.Backup = res;
-          this.resultService.setMatchesOfTournament(res);
-        },
-        error: (err) => console.error('Failed to load teams', err),
-      });
-    }
+    this.createMatchError.set(null);
+    this.createMatchLoading.set(true);
+    this.resultService.createMatch(tournamentId, [team1, team2], startDate).subscribe({
+      next: () => {
+        this.createMatchLoading.set(false);
+        this.createTeam1Id.set('');
+        this.createTeam2Id.set('');
+        this.createStartDate.set('');
+        this.resultService.getAllTeamsByTournament(tournamentId).subscribe({
+          next: (res: any) => {
+            const raw = Array.isArray(res) ? res : (res?.data ?? res?.matches ?? res?.items ?? []);
+            this.resultService.setMatchesOfTournament(Array.isArray(raw) ? raw : []);
+          },
+        });
+      },
+      error: (err: any) => {
+        this.createMatchLoading.set(false);
+        this.createMatchError.set(err?.error?.message ?? 'Failed to create match.');
+      },
+    });
   }
 }

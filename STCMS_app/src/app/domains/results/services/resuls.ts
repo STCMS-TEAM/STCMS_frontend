@@ -30,26 +30,54 @@ export class ResultsService {
     this._selectedTournament.set(tournament);
   }
 
-  // Signal holds the tournaments array reactively
   tournaments = signal<Tournament[]>([]);
-  // Signal holds the matches array reactively
   matchesOfTournament = signal<Match[]>([]);
 
-  // Setter method to update the signal
   setTournaments(tournaments: Tournament[]) {
     this.tournaments.set(tournaments);
   }
 
-  setMatchesOfTournament(matches: Match[]) {
-    this.matchesOfTournament.set(matches);
+  setMatchesOfTournament(matches: Match[] | any) {
+    let matchesArray: Match[] = [];
+
+    if (Array.isArray(matches)) {
+      matchesArray = matches;
+    } else if (matches && typeof matches === 'object') {
+      matchesArray = matches.matches || matches.data || matches.items || [];
+    }
+
+    if (!Array.isArray(matchesArray)) {
+      matchesArray = [];
+    }
+
+    const seen = new Set<string>();
+    const unique: Match[] = [];
+    for (const m of matchesArray) {
+      const id = (m as any)._id ?? (m as any).id;
+      let key: string;
+      if (id != null) {
+        key = String(id);
+      } else {
+        const t0 = (m as any).teams?.[0];
+        const t1 = (m as any).teams?.[1];
+        const n0 = String(t0?._id ?? t0?.id ?? t0?.name ?? '').trim().toLowerCase();
+        const n1 = String(t1?._id ?? t1?.id ?? t1?.name ?? '').trim().toLowerCase();
+        const dateRaw = (m as any).startDate ?? '';
+        const date = typeof dateRaw === 'string' ? dateRaw.slice(0, 19) : String(dateRaw);
+        key = [date, n0, n1].sort().join('|');
+      }
+      if (!seen.has(key)) {
+        seen.add(key);
+        unique.push(m);
+      }
+    }
+    this.matchesOfTournament.set(unique);
   }
 
-  // Optional helper to clear it
   clearTournaments() {
     this.tournaments.set([]);
   }
 
-  // TOURNAMENT API
   public createTournament(tournament: TournamentForm): Observable<TournamentForm> {
     return this.http.post<TournamentForm>(`${this.baseUrl}`, tournament);
   }
@@ -64,7 +92,6 @@ export class ResultsService {
   getTournaments(filters?: { [key: string]: any }): Observable<Tournament[]> {
     let params = new HttpParams();
 
-    // If filters exist, append them as query parameters
     if (filters) {
       Object.keys(filters).forEach((key) => {
         if (filters[key] !== null && filters[key] !== undefined && filters[key] !== '') {
@@ -73,11 +100,8 @@ export class ResultsService {
       });
     }
 
-    // Send GET request with or without params
     return this.http.get<Tournament[]>(this.baseUrl, { params });
   }
-
-  // TEAM API
 
   public createTeam(id: string, team: createTeam): Observable<createTeam> {
     return this.http.post<createTeam>(`${this.baseUrl}/${id}/teams`, team);
@@ -85,5 +109,17 @@ export class ResultsService {
 
   public getAllTeamsByTournament(id: string): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/${id}/matches`);
+  }
+
+  getTeamsByTournament(id: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${id}/teams`);
+  }
+
+  createMatch(tournamentId: string, teams: string[], startDate: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/${tournamentId}/matches`, { teams, startDate });
+  }
+
+  deleteTournament(id: string): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.baseUrl}/${id}`);
   }
 }
