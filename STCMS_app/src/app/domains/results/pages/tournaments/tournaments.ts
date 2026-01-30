@@ -21,29 +21,32 @@ export class Tournaments {
   }
 
   constructor() {
-    // Effect to log changes in selectedTournament
     effect(() => {
-      this.resultService.getTournamentsBySport(this.selectedSport()).subscribe((t) => {
-        this.tournaments.set(t);
-        if (t.length) {
-          this.resultService.toggleTournament(t[0]); // first tournament as default
-        }
+      const sport = this.selectedSport();
+      this.resultService.getTournamentsBySport(sport).subscribe({
+        next: (res: any) => {
+          const raw = Array.isArray(res) ? res : (res?.data ?? res?.items ?? []);
+          const list = Array.isArray(raw) ? raw.map((t: any) => ({ ...t, matches: [] })) : [];
+          this.tournaments.set(list);
+          if (list.length) {
+            this.resultService.toggleTournament(list[0]);
+          } else {
+            this.resultService.toggleTournament(null as any);
+          }
+        },
+        error: () => {
+          this.tournaments.set([]);
+          this.resultService.toggleTournament(null as any);
+        },
       });
     });
   }
 
   selectTournament(tournamentName: string) {
-    const tournaments = this.tournaments();
-    // Find the tournament object by name
-    const selected = tournaments.find((t) => t.name === tournamentName);
-
-    if (!selected?._id) {
-      console.error('Tournament not found:', tournamentName);
-      return;
-    }
-    console.log('this is selected tournament: ', selected);
+    const list = this.tournaments();
+    const selected = list.find((t) => t.name === tournamentName);
+    if (!selected?._id) return;
     this.resultService.toggleTournament(selected);
-
     if (this.isMobile()) {
       this.resultService.toggleShowMatches();
     }

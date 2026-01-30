@@ -1,6 +1,74 @@
 <div class="match-section p-2 bg-dark">
   <div class="container rounded bg-dark">
     <div class="d-flex flex-column gap-2">
+      @if (canShowManagement()) {
+      <div class="mb-2">
+        <button
+          type="button"
+          class="btn btn-outline-danger btn-sm"
+          [disabled]="deleteTournamentLoading()"
+          (click)="deleteTournamentConfirm()"
+        >
+          {{ deleteTournamentLoading() ? 'Deleting...' : 'Delete tournament' }}
+        </button>
+      </div>
+      }
+      @if (canShowCreateMatch()) {
+      <div class="card bg-secondary text-white p-3 mb-2">
+        <h6 class="mb-3">Create match</h6>
+        @if (teamsOfTournament().length === 0) {
+        <p class="text-warning small mb-2">Add teams to this tournament first (Manage Players &amp; Teams).</p>
+        }
+        <div class="d-flex flex-column flex-md-row gap-2 flex-wrap align-items-end">
+          <div class="flex-grow-1 min-w-120">
+            <label class="form-label small mb-1">Team 1</label>
+            <select
+              class="form-select form-select-sm bg-dark text-white"
+              [value]="createTeam1Id()"
+              (change)="onTeam1Change($any($event.target).value)"
+            >
+              <option value="">Select team</option>
+              @for (team of teamsOfTournament(); track team._id ?? team.id ?? $index) {
+              <option [value]="team._id ?? team.id">{{ team.name ?? 'Team' }}</option>
+              }
+            </select>
+          </div>
+          <div class="flex-grow-1 min-w-120">
+            <label class="form-label small mb-1">Team 2</label>
+            <select
+              class="form-select form-select-sm bg-dark text-white"
+              [value]="createTeam2Id()"
+              (change)="onTeam2Change($any($event.target).value)"
+            >
+              <option value="">Select team</option>
+              @for (team of teamsOfTournament(); track team._id ?? team.id ?? $index) {
+              <option [value]="team._id ?? team.id">{{ team.name ?? 'Team' }}</option>
+              }
+            </select>
+          </div>
+          <div class="min-w-180">
+            <label class="form-label small mb-1">Date & time</label>
+            <input
+              type="datetime-local"
+              class="form-control form-control-sm bg-dark text-white"
+              [value]="createStartDate()"
+              (input)="onStartDateChange($any($event.target).value)"
+            />
+          </div>
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            [disabled]="createMatchLoading()"
+            (click)="createMatchSubmit()"
+          >
+            {{ createMatchLoading() ? 'Creating...' : 'Create match' }}
+          </button>
+        </div>
+        @if (createMatchError()) {
+        <p class="text-warning small mt-2 mb-0">{{ createMatchError() }}</p>
+        }
+      </div>
+      }
       <div class="d-flex flex-wrap justify-content-center gap-2 p-2">
         @for (tab of tabs; track $index) {
         <div
@@ -16,24 +84,32 @@
       </div>
 
       <div class="d-flex flex-column gap-2">
-        @for(match of matchesOfTournament(); track $index) {
+        @if (matchesOfTournament().length === 0) {
+        <p class="text-white text-center py-3 mb-0">No matches available for this tournament.</p>
+        } @else {
+        @for (match of matchesOfTournament(); track match._id ?? match.id ?? $index) {
         <div class="card bg-secondary text-white p-2">
           <div class="d-flex justify-content-between flex-wrap">
             <div class="d-flex align-items-center text-center">
-              {{match.startDate | date:'shortTime'}}
+              @if (match.startDate) {
+              {{ match.startDate | date:'shortTime' }}
+              } @else {
+              <span class="text-muted">TBD</span>
+              }
             </div>
 
             <div class="d-flex flex-column mx-2">
-              <div>{{match.teams[0].name}}</div>
-              <div>{{match.teams[1].name}}</div>
+              <div>{{ match.teams?.[0]?.name ?? 'Team 1' }}</div>
+              <div>{{ match.teams?.[1]?.name ?? 'Team 2' }}</div>
             </div>
 
             <div class="d-flex flex-column text-white text-center">
-              <div>{{match.result.score[match.teams[0]._id!]}}</div>
-              <div>{{match.result.score[match.teams[1]._id!]}}</div>
+              <div>{{ getScore(match, 0) }}</div>
+              <div>{{ getScore(match, 1) }}</div>
             </div>
           </div>
         </div>
+        }
         }
       </div>
     </div>
