@@ -143,4 +143,21 @@ export class AuthService {
   clearToken(): void {
     sessionStorage.removeItem(this._accessTokenKey);
   }
+
+  /**
+   * Returns the current user's ID from the JWT token payload.
+   * Returns null if not authenticated or token is invalid.
+   */
+  getCurrentUserId(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+    try {
+      const payload = token.split('.')[1];
+      if (!payload) return null;
+      const decoded = JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/')));
+      return decoded?.id ?? null;
+    } catch {
+      return null;
+    }
+  }
 }

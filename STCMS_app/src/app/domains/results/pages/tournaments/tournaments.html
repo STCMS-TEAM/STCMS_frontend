@@ -15,8 +15,20 @@
         >
           <div class="card-body py-2 d-flex align-items-center justify-content-between">
             <h5 class="card-title mb-0">{{ tournament.name }}</h5>
-            <i class="fa fa-angle-right"></i>
-            <!-- Optional arrow icon -->
+            <div class="tournament-card-actions">
+              @if (isTournamentCreatedByCurrentUser(tournament)) {
+              <button
+                type="button"
+                class="delete-tournament-btn"
+                (click)="deleteTournament($event, tournament)"
+                title="Delete tournament"
+              >
+                <i class="fa-solid fa-trash"></i>
+                <span>Delete</span>
+              </button>
+              }
+              <i class="fa fa-angle-right"></i>
+            </div>
           </div>
         </div>
       </div>

@@ -119,7 +119,7 @@ export class ResultsService {
     return this.http.post<any>(`${this.baseUrl}/${tournamentId}/matches`, { teams, startDate });
   }
 
-  deleteTournament(id: string): Observable<{ message: string }> {
+  public deleteTournament(id: string): Observable<{ message: string }> {
     return this.http.delete<{ message: string }>(`${this.baseUrl}/${id}`);
   }
 }
