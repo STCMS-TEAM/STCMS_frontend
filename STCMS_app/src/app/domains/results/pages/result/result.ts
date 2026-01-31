@@ -3,10 +3,11 @@ import { Categories } from '../categories/categories';
 import { Match } from '../match/match';
 import { ResultsService } from '../../services/resuls';
 import { Tournaments } from '../tournaments/tournaments';
+import { TeamsList } from '../teams-list/teams-list';
 
 @Component({
   selector: 'app-result',
-  imports: [Tournaments, Match, Categories],
+  imports: [Tournaments, Match, Categories, TeamsList],
   templateUrl: './result.html',
   styleUrl: './result.css',
 })

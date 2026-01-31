@@ -9,14 +9,22 @@
     } @else {
     <button class="btn btn-secondary mb-2 " (click)="backToTournaments()">← Back</button>
     <app-match></app-match>
-
+    @if (selectedTournament()?._id) {
+    <app-teams-list class="mt-2"></app-teams-list>
+    }
     }
   </div>
 
-  <!-- Desktop -->
+  <!-- Desktop: placeholder keeps tabs position consistent with/without tournament -->
   <div class="d-none d-md-flex justify-content-center gap-5">
     <app-tournaments></app-tournaments>
 
     <app-match></app-match>
+
+    <div class="teams-column-placeholder">
+      @if (selectedTournament()?._id) {
+      <app-teams-list></app-teams-list>
+      }
+    </div>
   </div>
 </section>
