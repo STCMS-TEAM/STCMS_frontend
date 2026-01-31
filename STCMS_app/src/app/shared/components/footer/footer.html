@@ -13,8 +13,7 @@
       <a routerLink="/home" (click)="scrollTop()" class="text-white mx-2">Home</a> |
       <a routerLink="/result" (click)="scrollTop()" class="text-white mx-2">Tournaments</a> |
       <a routerLink="/select-type-sport-team" (click)="scrollTop()" class="text-white mx-2">Teams</a> |
-      <a routerLink="/select-type-sport-team" (click)="scrollTop()" class="text-white mx-2">Players</a> |
-      <a routerLink="/home" fragment="questions" class="text-white mx-2">Contact</a>
+      <a [routerLink]="['/home']" fragment="questions" class="text-white mx-2">FAQ</a>
     </div>
 
     <!-- Contact Info -->
