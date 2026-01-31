@@ -2,7 +2,13 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { createTeam, Tournament, TournamentForm } from '../../../shared/models/tournament';
+import {
+  createTeam,
+  Tournament,
+  TournamentForm,
+  TeamListItem,
+  TeamWithPlayers,
+} from '../../../shared/models/tournament';
 import { Match } from '../../../shared/models/matches';
 
 @Injectable({ providedIn: 'root' })
@@ -111,8 +117,12 @@ export class ResultsService {
     return this.http.get<any>(`${this.baseUrl}/${id}/matches`);
   }
 
-  getTeamsByTournament(id: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/${id}/teams`);
+  getTeamsByTournament(tournamentId: string): Observable<TeamListItem[]> {
+    return this.http.get<TeamListItem[]>(`${this.baseUrl}/${tournamentId}/teams`);
+  }
+
+  getTeamById(teamId: string): Observable<TeamWithPlayers> {
+    return this.http.get<TeamWithPlayers>(`${environment.API_DEV_URL}/teams/${teamId}`);
   }
 
   createMatch(tournamentId: string, teams: string[], startDate: string): Observable<any> {
