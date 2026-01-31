@@ -18,6 +18,5 @@ export class Result {
 
   backToTournaments() {
     this.resultService.toggleShowMatches();
-    console.log('>>> showMatches modified', this.showMatches());
   }
 }

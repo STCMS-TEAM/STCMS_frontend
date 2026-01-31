@@ -25,7 +25,6 @@ export class AdminDashboard {
 
   ngOnInit(): void {
     this.loadUsers();
-    console.log(this.users);
   }
 
   loadUsers(): void {

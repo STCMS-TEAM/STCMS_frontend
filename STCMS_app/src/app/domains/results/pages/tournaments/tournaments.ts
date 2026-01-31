@@ -41,7 +41,6 @@ export class Tournaments {
       console.error('Tournament not found:', tournamentName);
       return;
     }
-    console.log('this is selected tournament: ', selected);
     this.resultService.toggleTournament(selected);
 
     if (this.isMobile()) {

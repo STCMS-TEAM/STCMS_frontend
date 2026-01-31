@@ -3,7 +3,7 @@ import { environment } from '../../../../environments/environment.development';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { createTeam, Tournament, TournamentForm } from '../../../shared/models/tournament';
-import { Match } from '../../../shared/models/matches';
+import { MatchDTO } from '../../../shared/models/matches';
 
 @Injectable({ providedIn: 'root' })
 export class ResultsService {
@@ -33,14 +33,14 @@ export class ResultsService {
   // Signal holds the tournaments array reactively
   tournaments = signal<Tournament[]>([]);
   // Signal holds the matches array reactively
-  matchesOfTournament = signal<Match[]>([]);
+  matchesOfTournament = signal<MatchDTO[]>([]);
 
   // Setter method to update the signal
   setTournaments(tournaments: Tournament[]) {
     this.tournaments.set(tournaments);
   }
 
-  setMatchesOfTournament(matches: Match[]) {
+  setMatchesOfTournament(matches: MatchDTO[]) {
     this.matchesOfTournament.set(matches);
   }
 
@@ -83,7 +83,7 @@ export class ResultsService {
     return this.http.post<createTeam>(`${this.baseUrl}/${id}/teams`, team);
   }
 
-  public getAllTeamsByTournament(id: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/${id}/matches`);
+  public getAllTeamsByTournament(id: string): Observable<Tournament> {
+    return this.http.get<Tournament>(`${this.baseUrl}/${id}/matches`);
   }
 }

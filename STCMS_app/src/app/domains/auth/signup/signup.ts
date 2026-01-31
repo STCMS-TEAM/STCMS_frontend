@@ -47,7 +47,6 @@ export class Signup {
   }
 
   onSubmit() {
-    console.log(this.registerForm.value);
     if (this.registerForm.valid) {
       const formValue = this.registerForm.value;
       const user: User = {

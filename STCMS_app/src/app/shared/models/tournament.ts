@@ -1,3 +1,5 @@
+import { MatchDTO } from './matches';
+
 export interface TournamentForm {
   name: string;
   description: string;
@@ -20,7 +22,7 @@ export interface Tournament {
   updatedAt: string; // ISO date string
   __v: number;
   teams: Team[];
-  matches: Match[];
+  matches: MatchDTO[];
 }
 
 export interface CreatedBy {

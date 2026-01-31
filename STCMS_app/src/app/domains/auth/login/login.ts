@@ -28,7 +28,6 @@ export class Login {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log('Login submitted:', this.loginForm.value);
       this.authService.login(this.loginForm.value.email!, this.loginForm.value.password!);
     } else {
       console.warn('Form is invalid');

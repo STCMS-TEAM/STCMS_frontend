@@ -39,7 +39,7 @@ export class CreateTournament {
   get name() {
     return this.tournamentForm.get('name');
   }
-  
+
   get description() {
     return this.tournamentForm.get('description');
   }
@@ -50,11 +50,11 @@ export class CreateTournament {
   get endDate() {
     return this.tournamentForm.get('endDate');
   }
-  
+
   get type() {
     return this.tournamentForm.get('type');
   }
-  
+
   get sport() {
     return this.tournamentForm.get('sport');
   }
@@ -77,7 +77,6 @@ export class CreateTournament {
 
       this.resultService.createTournament(tournament).subscribe({
         next: (res) => {
-          console.log('✅ Tournament created successfully:', res);
           this.router.navigate(['/result']);
         },
         error: (err) => {
