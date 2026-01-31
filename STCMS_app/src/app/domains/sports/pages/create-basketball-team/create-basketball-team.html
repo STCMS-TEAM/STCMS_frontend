@@ -1,0 +1,97 @@
+<section
+  class="create-team-section d-flex justify-content-center align-items-center main-container bg-dark"
+>
+  <div class="container-fluid">
+    <div class="row align-items-center p-5">
+      <form
+        class="bg-dark text-white p-4 rounded shadow border border-light border-opacity-25"
+        [formGroup]="createTeamForm"
+        (ngSubmit)="onSubmit()"
+      >
+        <h2 class="mb-3">Create Basketball Team</h2>
+        <p class="mb-4 text-secondary">
+          Register your basketball team to participate in the tournament
+        </p>
+
+        <div class="mb-3">
+          <label for="teamName" class="form-label">Team Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="teamName"
+            formControlName="name"
+            placeholder="Enter your team name"
+            [class.is-invalid]="name?.invalid"
+          />
+          <div class="invalid-feedback" *ngIf="name?.invalid">
+            Please provide a valid team name.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="tournament" class="form-label">Tournament</label>
+          <select class="form-select" id="tournament" formControlName="tournamentId"
+          [class.is-invalid]="tournamentId?.invalid">
+            <option value="" selected disabled>Select a tournament</option>
+            @for (tournament of tournaments(); track $index) {
+            <option [value]="$any(tournament)._id || $any(tournament).id">
+                {{ tournament.name }}
+            </option>
+            }
+          </select>
+          <div class="invalid-feedback" *ngIf="tournamentId?.invalid">
+            Please select a tournament.
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-4" formArrayName="startingPlayers">
+            <label class="form-label text-white">Starting Players (5)</label>
+            @for (player of startingPlayers.controls; track $index) {
+            <div [formGroupName]="$index" class="mb-2 d-flex gap-2">
+              <input
+                type="email"
+                class="form-control"
+                formControlName="email"
+                placeholder="Enter player email"
+                [class.is-invalid]="emailsControls[$index].invalid"
+              />
+              <div class="invalid-feedback" *ngIf="emailsControls[$index].invalid">
+                Please provide a valid email.
+              </div>
+            </div>
+            }
+          </div>
+
+          <div class="col-md-6 mb-4" formArrayName="substitutes">
+            <label class="form-label text-white">Substitute Players</label>
+            @for (sub of substitutes.controls; track $index) {
+            <div [formGroupName]="$index" class="mb-2 d-flex gap-2">
+              <input
+                type="email"
+                class="form-control"
+                formControlName="email"
+                placeholder="Enter substitute email"
+                [class.is-invalid]="substituteEmailsControls[$index]?.invalid && substituteEmailsControls[$index]?.touched"
+              />
+              <div class="invalid-feedback" *ngIf="substituteEmailsControls[$index]?.invalid && substituteEmailsControls[$index]?.touched">
+                Please provide a valid email or remove this optional player.
+              </div>
+              <button type="button" class="btn btn-danger" (click)="removeSubstitute($index)">
+                &times;
+              </button>
+            </div>
+            }
+            <button type="button" class="btn btn-outline-light mt-2" (click)="addSubstitute()">
+              + Add Substitute
+            </button>
+          </div>
+        </div>
+
+        <div class="text-center mt-3">
+          <button type="submit" class="btn btn-primary mb-3">Register Team</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
