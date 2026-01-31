@@ -8,9 +8,9 @@
         [formGroup]="createTeamForm"
         (ngSubmit)="onSubmit()"
       >
-        <h2 class="mb-3">Create Football Team</h2>
+        <h2 class="mb-3">Create Basketball Team</h2>
         <p class="mb-4 text-secondary">
-          Register your football team to participate in the tournament
+          Register your basketball team to participate in the tournament
         </p>
 
         <div class="mb-3">
@@ -34,7 +34,9 @@
           [class.is-invalid]="tournamentId?.invalid">
             <option value="" selected disabled>Select a tournament</option>
             @for (tournament of tournaments(); track $index) {
-            <option [value]="tournament._id || tournament.id">{{ tournament.name }}</option>
+            <option [value]="$any(tournament)._id || $any(tournament).id">
+                {{ tournament.name }}
+            </option>
             }
           </select>
           <div class="invalid-feedback" *ngIf="tournamentId?.invalid">
@@ -44,7 +46,7 @@
 
         <div class="row">
           <div class="col-md-6 mb-4" formArrayName="startingPlayers">
-            <label class="form-label text-white">Starting Players (11)</label>
+            <label class="form-label text-white">Starting Players (5)</label>
             @for (player of startingPlayers.controls; track $index) {
             <div [formGroupName]="$index" class="mb-2 d-flex gap-2">
               <input

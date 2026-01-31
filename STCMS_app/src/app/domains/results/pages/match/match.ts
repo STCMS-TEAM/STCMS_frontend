@@ -15,19 +15,18 @@ export class Match {
   matchesOfTournament = this.resultService.matchesOfTournament;
   selectedTournament = this.resultService.selectedTournament;
   tabs = ['All', 'Live', 'Concluded', 'Scheduled'];
-
   constructor() {
     // Effect to log changes in matchesOfTournament
     effect(() => {
       if (!this.selectedTournament()?._id) {
-        return;
+         return;
       }
       this.resultService.getAllTeamsByTournament(this.selectedTournament()._id).subscribe({
         next: (res) => {
           this.resultService.setMatchesOfTournament(res);
           this.Backup = res;
           console.log(this.matchesOfTournament());
-        },
+           },
         error: (err) => console.error('Failed to load teams', err),
       });
     });
@@ -66,7 +65,7 @@ export class Match {
         next: (res) => {
           this.Backup = res;
           this.resultService.setMatchesOfTournament(res);
-        },
+           },
         error: (err) => console.error('Failed to load teams', err),
       });
     }

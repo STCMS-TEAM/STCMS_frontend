@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 sticky-top">
   <div class="container">
-    <a href="/home" class="navbar-brand d-flex align-items-center">
+    <a routerLink="/home" (click)="scrollTop()" class="navbar-brand d-flex align-items-center">
       <img src="/assets/svg/logo.svg" alt="STCMS logo" class="img-fluid me-2" style="width: 80px" />
       <span class="fw-bold text-white">STCMS</span>
     </a>
@@ -17,10 +17,10 @@
     <div class="collapse navbar-collapse" id="navmenu">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a routerLink="/home" class="nav-link">Home</a>
+          <a routerLink="/home" (click)="scrollTop()" class="nav-link">Home</a>
         </li>
         <li class="nav-item">
-          <a routerLink="/result" class="nav-link">Tournaments</a>
+          <a routerLink="/result" (click)="scrollTop()" class="nav-link">Tournaments</a>
         </li>
         <li class="nav-item">
           <a routerLink="/reports" class="nav-link">Reports</a>
@@ -30,7 +30,7 @@
         </li>
         @if(isAuth()) {
         <li class="nav-item">
-          <a routerLink="/select-type-sport-team" class="nav-link">Create Team</a>
+          <a routerLink="/select-type-sport-team" (click)="scrollTop()" class="nav-link">Create Team</a>
         </li>
         }
       </ul>

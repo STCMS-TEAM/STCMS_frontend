@@ -35,6 +35,25 @@ export class AuthService {
   isAuth = computed(() => this._state().isAuth);
   user = computed(() => this._state().user);
 
+  userId = computed(() => {
+    const u = this._state().user;
+    if (u && typeof u === 'object') {
+      const id = (u as any)._id ?? (u as any).id;
+      if (id != null) return String(id);
+    }
+    const t = this._state().token;
+    if (!t || typeof t !== 'string') return null;
+    try {
+      const payload = t.split('.')[1];
+      if (!payload) return null;
+      const decoded = JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/')));
+      const sub = decoded.sub ?? decoded.id;
+      return sub != null ? String(sub) : null;
+    } catch {
+      return null;
+    }
+  });
+
   constructor() {
     effect(() => {
       const token = this.token();
