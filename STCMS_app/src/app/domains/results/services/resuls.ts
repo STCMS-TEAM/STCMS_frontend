@@ -2,7 +2,13 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { createTeam, Tournament, TournamentForm } from '../../../shared/models/tournament';
+import {
+  createTeam,
+  Tournament,
+  TournamentForm,
+  TeamListItem,
+  TeamWithPlayers,
+} from '../../../shared/models/tournament';
 import { MatchDTO } from '../../../shared/models/matches';
 
 @Injectable({ providedIn: 'root' })
@@ -30,12 +36,10 @@ export class ResultsService {
     this._selectedTournament.set(tournament);
   }
 
-  // Signal holds the tournaments array reactively
   tournaments = signal<Tournament[]>([]);
   // Signal holds the matches array reactively
   matchesOfTournament = signal<MatchDTO[]>([]);
 
-  // Setter method to update the signal
   setTournaments(tournaments: Tournament[]) {
     this.tournaments.set(tournaments);
   }
@@ -44,12 +48,10 @@ export class ResultsService {
     this.matchesOfTournament.set(matches);
   }
 
-  // Optional helper to clear it
   clearTournaments() {
     this.tournaments.set([]);
   }
 
-  // TOURNAMENT API
   public createTournament(tournament: TournamentForm): Observable<TournamentForm> {
     return this.http.post<TournamentForm>(`${this.baseUrl}`, tournament);
   }
@@ -64,7 +66,6 @@ export class ResultsService {
   getTournaments(filters?: { [key: string]: any }): Observable<Tournament[]> {
     let params = new HttpParams();
 
-    // If filters exist, append them as query parameters
     if (filters) {
       Object.keys(filters).forEach((key) => {
         if (filters[key] !== null && filters[key] !== undefined && filters[key] !== '') {
@@ -73,11 +74,8 @@ export class ResultsService {
       });
     }
 
-    // Send GET request with or without params
     return this.http.get<Tournament[]>(this.baseUrl, { params });
   }
-
-  // TEAM API
 
   public createTeam(id: string, team: createTeam): Observable<createTeam> {
     return this.http.post<createTeam>(`${this.baseUrl}/${id}/teams`, team);
@@ -85,5 +83,21 @@ export class ResultsService {
 
   public getAllTeamsByTournament(id: string): Observable<Tournament> {
     return this.http.get<Tournament>(`${this.baseUrl}/${id}/matches`);
+  }
+
+  getTeamsByTournament(tournamentId: string): Observable<TeamListItem[]> {
+    return this.http.get<TeamListItem[]>(`${this.baseUrl}/${tournamentId}/teams`);
+  }
+
+  getTeamById(teamId: string): Observable<TeamWithPlayers> {
+    return this.http.get<TeamWithPlayers>(`${environment.API_DEV_URL}/teams/${teamId}`);
+  }
+
+  createMatch(tournamentId: string, teams: string[], startDate: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/${tournamentId}/matches`, { teams, startDate });
+  }
+
+  deleteTournament(id: string): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.baseUrl}/${id}`);
   }
 }

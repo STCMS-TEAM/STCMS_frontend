@@ -39,6 +39,20 @@ export interface Team {
   members?: string[];
 }
 
+export interface TeamListItem {
+  _id: string;
+  name: string;
+  tournament?: string;
+  captain?: string;
+  players?: string[];
+}
+
+export interface TeamWithPlayers {
+  _id: string;
+  name: string;
+  players: { _id: string; name: string; email?: string }[];
+}
+
 export interface Match {
   _id?: string;
   round?: number;

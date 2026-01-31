@@ -1,0 +1,39 @@
+<div class="teams-list-section p-2 bg-dark">
+  <h6 class="text-white mb-2">Teams</h6>
+  <div class="teams-list">
+    @if (teams().length === 0) {
+    <p class="text-white-50 small mb-0">No teams in this tournament</p>
+    } @else {
+    @for (team of teams(); track team._id) {
+    <div class="team-item">
+      <div
+        class="team-name-row"
+        (click)="toggleTeamPlayers(team._id)"
+        [class.expanded]="expandedTeamId() === team._id"
+      >
+        <span>{{ team.name }}</span>
+        <i
+          class="fa fa-angle-down toggle-icon"
+          [class.rotated]="expandedTeamId() === team._id"
+        ></i>
+      </div>
+      @if (expandedTeamId() === team._id) {
+      <div class="team-players">
+        @if (loadingPlayers()) {
+        <span class="text-white-50 small">Loading...</span>
+        } @else if (teamPlayers().length > 0) {
+        <ul class="players-list">
+          @for (player of teamPlayers(); track player._id) {
+          <li>{{ player.name }}</li>
+          }
+        </ul>
+        } @else {
+        <span class="text-white-50 small">No players</span>
+        }
+      </div>
+      }
+    </div>
+    }
+    }
+  </div>
+</div>

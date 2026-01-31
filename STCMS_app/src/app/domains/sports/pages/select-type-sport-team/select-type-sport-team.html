@@ -12,12 +12,8 @@
 
     <!-- Sport options -->
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-5">
-      <a
-        routerLink="/tournaments"
-        [queryParams]="{ sport: 'basketball' }"
-        class="text-decoration-none sport-option"
-      >
-        <img src="/assets/svg/basketball.svg" class="img-fluid" alt="basketball" />
+        <a routerLink="/create-basketball-team" class="text-decoration-none">
+        <img src="/assets/svg/basketball.svg" class="img-fluid sport-img" alt="basketball" />
         <p class="text-white mt-3 fw-semibold">Basketball</p>
       </a>
 
@@ -26,12 +22,8 @@
         <p class="text-white mt-3 fw-semibold">Football</p>
       </a>
 
-      <a
-        routerLink="/tournaments"
-        [queryParams]="{ sport: 'volleyball' }"
-        class="text-decoration-none sport-option"
-      >
-        <img src="/assets/svg/volleyball.svg" class="img-fluid" alt="volleyball" />
+      <a routerLink="/create-volleyball-team" class="text-decoration-none">
+        <img src="/assets/svg/volleyball.svg" class="img-fluid sport-img" alt="volleyball" />
         <p class="text-white mt-3 fw-semibold">Volleyball</p>
       </a>
     </div>

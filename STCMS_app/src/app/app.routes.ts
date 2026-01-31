@@ -10,6 +10,8 @@ import { CreateFootballTeam } from './domains/sports/pages/create-football-team/
 import { SelectTypeSportTeam } from './domains/sports/pages/select-type-sport-team/select-type-sport-team';
 import {About} from './domains/about/about';
 import { Reports } from './reports/reports';
+import { CreateBasketballTeam } from './domains/sports/pages/create-basketball-team/create-basketball-team';
+import { CreateVolleyballTeam } from './domains/sports/pages/create-volleyball-team/create-volleyball-team';
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
@@ -46,6 +48,16 @@ export const routes: Routes = [
     path: 'create-football-team',
     component: CreateFootballTeam,
   },
+  
+  {
+    path: 'create-basketball-team',
+    component: CreateBasketballTeam,
+  },
+  {
+    path: 'create-volleyball-team',
+    component: CreateVolleyballTeam,
+  },
+  
   {
     path: 'select-type-sport-team',
     component: SelectTypeSportTeam,

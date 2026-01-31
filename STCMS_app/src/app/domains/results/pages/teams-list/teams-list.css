@@ -1,0 +1,59 @@
+.teams-list-section {
+  min-width: 200px;
+}
+
+.teams-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.team-item {
+  background: #2d3748;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.team-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.75rem;
+  cursor: pointer;
+  color: #fff;
+  transition: background 0.2s;
+}
+
+.team-name-row:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.team-name-row.expanded {
+  background: rgba(13, 110, 253, 0.2);
+}
+
+.toggle-icon {
+  font-size: 0.9rem;
+  transition: transform 0.2s;
+}
+
+.toggle-icon.rotated {
+  transform: rotate(180deg);
+}
+
+.team-players {
+  padding: 0.5rem 0.75rem 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.players-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+}
+
+.players-list li {
+  margin-bottom: 0.25rem;
+}

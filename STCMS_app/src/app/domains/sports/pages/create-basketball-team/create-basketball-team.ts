@@ -3,15 +3,20 @@ import { ResultsService } from '../../../results/services/resuls';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { createTeam } from '../../../../shared/models/tournament';
-
 @Component({
-  selector: 'app-create-football-team',
-  standalone: true,
+  selector: 'app-create-basketball-team',
+  standalone:true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './create-football-team.html',
-  styleUrls: ['./create-football-team.css'],
+  templateUrl: './create-basketball-team.html',
+  styleUrls: ['./create-basketball-team.css'],
 })
-export class CreateFootballTeam implements OnInit {
+
+
+
+
+export class CreateBasketballTeam implements OnInit {
+
+
   private resultService = inject(ResultsService);
   private fb = inject(FormBuilder);
 
@@ -20,12 +25,12 @@ export class CreateFootballTeam implements OnInit {
   createTeamForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
     tournamentId: ['', [Validators.required]],
-    startingPlayers: this.fb.array(this.createPlayerArray(11)),
+    startingPlayers: this.fb.array(this.createPlayerArray(5)),
     substitutes: this.fb.array([]),
   });
 
   ngOnInit() {
-    this.resultService.getTournaments({ sport: 'soccer' }).subscribe({
+    this.resultService.getTournaments({ sport: 'basketball' }).subscribe({
       next: (res) => {
         console.log('Tournaments loaded:', res);
         this.resultService.setTournaments(res);
@@ -122,7 +127,7 @@ export class CreateFootballTeam implements OnInit {
           while (this.startingPlayers.length !== 0) {
             this.startingPlayers.removeAt(0);
           }
-          this.createPlayerArray(11).forEach(player => {
+          this.createPlayerArray(5).forEach(player => {
             this.startingPlayers.push(player);
           });
         },
@@ -182,3 +187,4 @@ export class CreateFootballTeam implements OnInit {
     return errors;
   }
 }
+

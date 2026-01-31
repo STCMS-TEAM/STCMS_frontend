@@ -5,13 +5,13 @@ import { CommonModule } from '@angular/common';
 import { createTeam } from '../../../../shared/models/tournament';
 
 @Component({
-  selector: 'app-create-football-team',
+  selector: 'app-create-volleyball-team',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './create-football-team.html',
-  styleUrls: ['./create-football-team.css'],
+  templateUrl: './create-volleyball-team.html',
+  styleUrls: ['./create-volleyball-team.css'],
 })
-export class CreateFootballTeam implements OnInit {
+export class CreateVolleyballTeam implements OnInit {
   private resultService = inject(ResultsService);
   private fb = inject(FormBuilder);
 
@@ -20,12 +20,12 @@ export class CreateFootballTeam implements OnInit {
   createTeamForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
     tournamentId: ['', [Validators.required]],
-    startingPlayers: this.fb.array(this.createPlayerArray(11)),
+    startingPlayers: this.fb.array(this.createPlayerArray(6)),
     substitutes: this.fb.array([]),
   });
 
   ngOnInit() {
-    this.resultService.getTournaments({ sport: 'soccer' }).subscribe({
+    this.resultService.getTournaments({ sport: 'volleyball' }).subscribe({
       next: (res) => {
         console.log('Tournaments loaded:', res);
         this.resultService.setTournaments(res);
@@ -122,7 +122,7 @@ export class CreateFootballTeam implements OnInit {
           while (this.startingPlayers.length !== 0) {
             this.startingPlayers.removeAt(0);
           }
-          this.createPlayerArray(11).forEach(player => {
+          this.createPlayerArray(6).forEach(player => {
             this.startingPlayers.push(player);
           });
         },
