@@ -23,8 +23,8 @@
           id="email"
           formControlName="email"
           placeholder="marco@gmail.com"
-          [class.is-invalid]="email?.invalid">
-          <div class="invalid-feedback" *ngIf="email?.invalid">
+          [class.is-invalid]="submitted && email?.invalid">
+          <div class="invalid-feedback" *ngIf="submitted && email?.invalid">
           Put a valid email address.
     </div>
       </div>
@@ -38,8 +38,8 @@
           id="password"
           formControlName="password"
           placeholder="Enter your password"
-          [class.is-invalid]="password?.invalid">
-          <div class="invalid-feedback" *ngIf="password?.invalid">
+          [class.is-invalid]="submitted && password?.invalid">
+          <div class="invalid-feedback" *ngIf="submitted && password?.invalid">
           Put a password with at least 6 characters.
     </div>
       </div>

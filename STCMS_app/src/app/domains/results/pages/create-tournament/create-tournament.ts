@@ -14,7 +14,7 @@ import { TournamentForm } from '../../../../shared/models/tournament';
 export class CreateTournament {
   private router = inject(Router);
   private resultService = inject(ResultsService);
-
+  submitted = false;
   tournamentForm = new FormGroup({
     name: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     description: new FormControl<string>('', {
@@ -65,7 +65,7 @@ export class CreateTournament {
   onSubmit() {
     if (this.tournamentForm.valid) {
       const formValue = this.tournamentForm.getRawValue();
-
+      this.submitted = true;
       const tournament: TournamentForm = {
         name: formValue.name,
         description: formValue.description,

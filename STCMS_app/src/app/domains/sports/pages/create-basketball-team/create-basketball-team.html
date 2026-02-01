@@ -21,9 +21,9 @@
             id="teamName"
             formControlName="name"
             placeholder="Enter your team name"
-            [class.is-invalid]="name?.invalid"
+            [class.is-invalid]="submitted && name?.invalid"
           />
-          <div class="invalid-feedback" *ngIf="name?.invalid">
+          <div class="invalid-feedback" *ngIf="submitted && name?.invalid">
             Please provide a valid team name.
           </div>
         </div>
@@ -39,7 +39,7 @@
             </option>
             }
           </select>
-          <div class="invalid-feedback" *ngIf="tournamentId?.invalid">
+          <div class="invalid-feedback" *ngIf="submitted && tournamentId?.invalid">
             Please select a tournament.
           </div>
         </div>
@@ -54,9 +54,9 @@
                 class="form-control"
                 formControlName="email"
                 placeholder="Enter player email"
-                [class.is-invalid]="emailsControls[$index].invalid"
+                [class.is-invalid]="submitted && emailsControls[$index].invalid"
               />
-              <div class="invalid-feedback" *ngIf="emailsControls[$index].invalid">
+              <div class="invalid-feedback" *ngIf="submitted && emailsControls[$index].invalid">
                 Please provide a valid email.
               </div>
             </div>
@@ -72,9 +72,9 @@
                 class="form-control"
                 formControlName="email"
                 placeholder="Enter substitute email"
-                [class.is-invalid]="substituteEmailsControls[$index]?.invalid && substituteEmailsControls[$index]?.touched"
+                [class.is-invalid]="submitted && substituteEmailsControls[$index]?.invalid"
               />
-              <div class="invalid-feedback" *ngIf="substituteEmailsControls[$index]?.invalid && substituteEmailsControls[$index]?.touched">
+              <div class="invalid-feedback" *ngIf="submitted && substituteEmailsControls[$index]?.invalid">
                 Please provide a valid email or remove this optional player.
               </div>
               <button type="button" class="btn btn-danger" (click)="removeSubstitute($index)">

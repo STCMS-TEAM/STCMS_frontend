@@ -14,7 +14,7 @@ import { createTeam } from '../../../../shared/models/tournament';
 export class CreateFootballTeam implements OnInit {
   private resultService = inject(ResultsService);
   private fb = inject(FormBuilder);
-
+  submitted = false;
   tournaments = this.resultService.tournaments;
 
   createTeamForm = this.fb.group({
@@ -80,7 +80,7 @@ export class CreateFootballTeam implements OnInit {
   onSubmit() {
     if (this.createTeamForm.valid) {
       const tournamentId = this.createTeamForm.value.tournamentId;
-      
+      this.submitted = true;
       if (!tournamentId) {
         console.error('Tournament ID is required');
         alert('Please select a tournament');

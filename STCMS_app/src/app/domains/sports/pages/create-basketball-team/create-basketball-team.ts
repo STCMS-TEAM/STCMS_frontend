@@ -16,7 +16,7 @@ import { createTeam } from '../../../../shared/models/tournament';
 
 export class CreateBasketballTeam implements OnInit {
 
-
+  submitted = false;
   private resultService = inject(ResultsService);
   private fb = inject(FormBuilder);
 
@@ -85,7 +85,7 @@ export class CreateBasketballTeam implements OnInit {
   onSubmit() {
     if (this.createTeamForm.valid) {
       const tournamentId = this.createTeamForm.value.tournamentId;
-      
+      this.submitted = true;
       if (!tournamentId) {
         console.error('Tournament ID is required');
         alert('Please select a tournament');

@@ -23,8 +23,8 @@
           id="name"
           formControlName="name"
           placeholder="name"
-          [class.is-invalid]="name?.invalid">
-          <div class="invalid-feedback" *ngIf="name?.invalid">
+          [class.is-invalid]="submitted && name?.invalid">
+          <div class="invalid-feedback" *ngIf="submitted && name?.invalid">
           Put a valid name for your tournament.
       </div>
       </div>
@@ -38,8 +38,8 @@
           id="description"
           formControlName="description"
           placeholder="Enter your description"
-        [class.is-invalid]="description?.invalid">
-          <div class="invalid-feedback" *ngIf="description?.invalid">
+        [class.is-invalid]="submitted && description?.invalid">
+          <div class="invalid-feedback" *ngIf="submitted && description?.invalid">
           Describe your tournament.
       </div>
       </div>
@@ -53,8 +53,8 @@
           id="startDate"
           formControlName="startDate"
           placeholder="1998-04-12"
-        [class.is-invalid]="startDate?.invalid">
-          <div class="invalid-feedback" *ngIf="startDate?.invalid">
+        [class.is-invalid]="submitted && startDate?.invalid">
+          <div class="invalid-feedback" *ngIf="submitted && startDate?.invalid">
           I'm thrilled to know when your tournament kicks off!
       </div>
       </div>
@@ -68,35 +68,37 @@
           id="endDate"
           formControlName="endDate"
           placeholder="1999-04-12"
-        [class.is-invalid]="endDate?.invalid">
-          <div class="invalid-feedback" *ngIf="endDate?.invalid">
+        [class.is-invalid]="submitted && endDate?.invalid">
+          <div class="invalid-feedback" *ngIf="submitted && endDate?.invalid">
           Cool! A lifelong tournament? Let me know when it ends.
       </div>
       </div>
 
       <!-- type tournament -->
       <div class="mb-3">
-        <label for="endDate" class="form-label text-white">Type Tournament</label>
-        <input
-          type="text"
-          class="form-control"
-          id="typeTournament"
-          formControlName="type"
-          placeholder="Enter tournament type"
-        [class.is-invalid]="typeTournament?.invalid">
-          <div class="invalid-feedback" *ngIf="typeTournament?.invalid">
-          What type of tournament is this?
-      </div>
-      </div>
-
+  <label for="typeTournament" class="form-label text-white">Type Tournament</label>
+  <input
+    type="text"
+    class="form-control"
+    id="typeTournament"
+    formControlName="type" 
+    placeholder="Enter tournament type"
+    [class.is-invalid]="submitted && typeTournament?.invalid"> <div class="invalid-feedback" *ngIf="submitted && typeTournament?.invalid">
+    What type of tournament is this?
+  </div>
+</div>
+      <!-- Sport -->
       <div class="mb-3">
         <label for="sport" class="form-label text-white">Sport</label>
-        <select class="form-select" id="sport" formControlName="sport">
-          <option value="">Select a sport</option>
-          <option value="soccer">soccer</option>
-          <option value="basketball">basketball</option>
-          <option value="volleyball">volleyball</option>
-        </select>
+        <select 
+    class="form-select" 
+    id="sport" 
+    formControlName="sport"
+    [class.is-invalid]="submitted && sport?.invalid"> <option value="" selected disabled>Select your sport</option>
+    <option value="soccer">Soccer</option>
+    <option value="basketball">Basketball</option>
+    <option value="volleyball">Volleyball</option>
+  </select>
       </div>
 
       <div class="text-center mt-3">
