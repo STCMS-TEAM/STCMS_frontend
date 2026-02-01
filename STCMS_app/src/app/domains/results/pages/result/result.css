@@ -1,0 +1,21 @@
+.result-section .d-none.d-md-flex {
+  align-items: flex-start;
+}
+
+/* Fixed column widths */
+.result-section .d-none.d-md-flex > app-tournaments {
+  flex: 0 0 320px;
+  min-width: 0;
+  max-width: 320px;
+}
+
+.result-section .d-none.d-md-flex > app-match {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.result-section .d-none.d-md-flex > .teams-column-placeholder {
+  flex: 0 0 220px;
+  min-width: 0;
+  max-width: 220px;
+}

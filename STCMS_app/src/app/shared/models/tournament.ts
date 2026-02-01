@@ -1,3 +1,5 @@
+import { MatchDTO } from './matches';
+
 export interface TournamentForm {
   name: string;
   description: string;
@@ -20,7 +22,7 @@ export interface Tournament {
   updatedAt: string; // ISO date string
   __v: number;
   teams: Team[];
-  matches: Match[];
+  matches: MatchDTO[];
 }
 
 export interface CreatedBy {
@@ -35,6 +37,20 @@ export interface Team {
   _id?: string;
   name?: string;
   members?: string[];
+}
+
+export interface TeamListItem {
+  _id: string;
+  name: string;
+  tournament?: string;
+  captain?: string;
+  players?: string[];
+}
+
+export interface TeamWithPlayers {
+  _id: string;
+  name: string;
+  players: { _id: string; name: string; email?: string }[];
 }
 
 export interface Match {

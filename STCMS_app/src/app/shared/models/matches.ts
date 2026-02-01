@@ -1,6 +1,6 @@
 import { Team, Tournament } from './tournament';
 
-export interface Match {
+export interface MatchDTO {
   startDate: string;
   tournament: Tournament[];
   teams: Team[];

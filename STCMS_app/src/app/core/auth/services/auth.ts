@@ -83,7 +83,6 @@ export class AuthService {
             isAuth: true,
             loading: false,
           })),
-            console.log(response),
             this.router.navigate(['/home']));
         },
         error: (err) => {

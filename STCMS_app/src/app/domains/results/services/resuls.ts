@@ -2,8 +2,14 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { createTeam, Tournament, TournamentForm } from '../../../shared/models/tournament';
-import { Match } from '../../../shared/models/matches';
+import {
+  createTeam,
+  Tournament,
+  TournamentForm,
+  TeamListItem,
+  TeamWithPlayers,
+} from '../../../shared/models/tournament';
+import { MatchDTO } from '../../../shared/models/matches';
 
 @Injectable({ providedIn: 'root' })
 export class ResultsService {
@@ -31,47 +37,15 @@ export class ResultsService {
   }
 
   tournaments = signal<Tournament[]>([]);
-  matchesOfTournament = signal<Match[]>([]);
+  // Signal holds the matches array reactively
+  matchesOfTournament = signal<MatchDTO[]>([]);
 
   setTournaments(tournaments: Tournament[]) {
     this.tournaments.set(tournaments);
   }
 
-  setMatchesOfTournament(matches: Match[] | any) {
-    let matchesArray: Match[] = [];
-
-    if (Array.isArray(matches)) {
-      matchesArray = matches;
-    } else if (matches && typeof matches === 'object') {
-      matchesArray = matches.matches || matches.data || matches.items || [];
-    }
-
-    if (!Array.isArray(matchesArray)) {
-      matchesArray = [];
-    }
-
-    const seen = new Set<string>();
-    const unique: Match[] = [];
-    for (const m of matchesArray) {
-      const id = (m as any)._id ?? (m as any).id;
-      let key: string;
-      if (id != null) {
-        key = String(id);
-      } else {
-        const t0 = (m as any).teams?.[0];
-        const t1 = (m as any).teams?.[1];
-        const n0 = String(t0?._id ?? t0?.id ?? t0?.name ?? '').trim().toLowerCase();
-        const n1 = String(t1?._id ?? t1?.id ?? t1?.name ?? '').trim().toLowerCase();
-        const dateRaw = (m as any).startDate ?? '';
-        const date = typeof dateRaw === 'string' ? dateRaw.slice(0, 19) : String(dateRaw);
-        key = [date, n0, n1].sort().join('|');
-      }
-      if (!seen.has(key)) {
-        seen.add(key);
-        unique.push(m);
-      }
-    }
-    this.matchesOfTournament.set(unique);
+  setMatchesOfTournament(matches: MatchDTO[]) {
+    this.matchesOfTournament.set(matches);
   }
 
   clearTournaments() {
@@ -107,12 +81,16 @@ export class ResultsService {
     return this.http.post<createTeam>(`${this.baseUrl}/${id}/teams`, team);
   }
 
-  public getAllTeamsByTournament(id: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/${id}/matches`);
+  public getAllTeamsByTournament(id: string): Observable<Tournament> {
+    return this.http.get<Tournament>(`${this.baseUrl}/${id}/matches`);
   }
 
-  getTeamsByTournament(id: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/${id}/teams`);
+  getTeamsByTournament(tournamentId: string): Observable<TeamListItem[]> {
+    return this.http.get<TeamListItem[]>(`${this.baseUrl}/${tournamentId}/teams`);
+  }
+
+  getTeamById(teamId: string): Observable<TeamWithPlayers> {
+    return this.http.get<TeamWithPlayers>(`${environment.API_DEV_URL}/teams/${teamId}`);
   }
 
   createMatch(tournamentId: string, teams: string[], startDate: string): Observable<any> {
