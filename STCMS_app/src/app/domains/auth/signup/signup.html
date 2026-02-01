@@ -23,9 +23,9 @@
           id="name"
           formControlName="name"
           placeholder="Marco"
-          [class.is-invalid]="name?.invalid"
+          [class.is-invalid]="submitted && name?.invalid"
         />
-        <div class="invalid-feedback" *ngIf="name?.invalid">
+        <div class="invalid-feedback" *ngIf="submitted && name?.invalid">
           Put a name, either if you are a son of Elon.
       </div>
       </div>
@@ -39,9 +39,9 @@
           id="lastName"
           formControlName="last_name"
           placeholder="Favero"
-          [class.is-invalid]="last_name?.invalid"
+          [class.is-invalid]="submitted && last_name?.invalid"
         />
-        <div class="invalid-feedback" *ngIf="last_name?.invalid">
+        <div class="invalid-feedback" *ngIf="submitted && last_name?.invalid">
           Are you a Brazilian player?
       </div>
       </div>
@@ -55,9 +55,9 @@
           id="email"
           formControlName="email"
           placeholder="marco@gmail.com"
-          [class.is-invalid]="email?.invalid"
+          [class.is-invalid]="submitted && email?.invalid"
         />
-        <div class="invalid-feedback" *ngIf="email?.invalid">
+        <div class="invalid-feedback" *ngIf="submitted && email?.invalid">
           Please provide a valid email address.
       </div>
       </div>
@@ -71,26 +71,30 @@
           id="password"
           formControlName="password"
           placeholder="Enter your password"
-          [class.is-invalid]="password?.invalid"
+          [class.is-invalid]="submitted && password?.invalid"
         />
-        <div class="invalid-feedback" *ngIf="password?.invalid">
+        <div class="invalid-feedback" *ngIf="submitted && password?.invalid">
           Password must be at least 6 characters long. </div>
       </div>
 
 
       <!-- Gender -->
       <div class="mb-3">
-        <label for="gender" class="form-label text-white">Gender</label>
-        <select class="form-select" id="gender" formControlName="gender">
-          <option value="" selected disabled>Select your gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
-        <div class="invalid-feedback">
-      Please select a valid gender.
-    </div>
-      </div>
+  <label for="gender" class="form-label text-white">Gender</label>
+  <select 
+    class="form-select" 
+    id="gender" 
+    formControlName="gender"
+    [class.is-invalid]="submitted && gender?.invalid"> <option value="" selected disabled>Select your gender</option>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+    <option value="other">Other</option>
+  </select>
+
+  <div class="invalid-feedback" *ngIf="submitted && gender?.invalid">
+    Please select a valid gender.
+  </div>
+</div>
 
       <!-- Age -->
       <div class="mb-3">
@@ -101,9 +105,9 @@
           id="birthDate"
           formControlName="birthDate"
           placeholder="1998-04-12"
-          [class.is-invalid]="birthDate?.invalid"
+          [class.is-invalid]="submitted && birthDate?.invalid"
         />
-        <div class="invalid-feedback" *ngIf="birthDate?.invalid">
+        <div class="invalid-feedback" *ngIf="submitted && birthDate?.invalid">
           You must be born to use this service. </div>
       </div>
 
@@ -116,9 +120,9 @@
           id="phoneNumber"
           formControlName="phone_number"
           placeholder="1591827319"
-          [class.is-invalid]="phone_number?.invalid"
+          [class.is-invalid]="submitted && phone_number?.invalid"
         />
-        <div class="invalid-feedback" *ngIf="phone_number?.invalid">
+        <div class="invalid-feedback" *ngIf="submitted && phone_number?.invalid">
           We are in 21st century, please provide a valid phone number.
       </div>
       </div>

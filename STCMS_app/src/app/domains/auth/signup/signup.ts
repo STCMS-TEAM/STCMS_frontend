@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 export class Signup {
   private authService = inject(AuthService);
   private router = inject(Router);
-
+  submitted = false;
   registerForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(2)]),
     last_name: new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -49,6 +49,7 @@ export class Signup {
   onSubmit() {
     console.log(this.registerForm.value);
     if (this.registerForm.valid) {
+      this.submitted = true;
       const formValue = this.registerForm.value;
       const user: User = {
         name: formValue.name!,

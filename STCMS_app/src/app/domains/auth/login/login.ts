@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
 })
 export class Login {
   private authService = inject(AuthService);
-
+  submitted = false;
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -28,6 +28,7 @@ export class Login {
 
   onSubmit() {
     if (this.loginForm.valid) {
+      this.submitted = true;
       console.log('Login submitted:', this.loginForm.value);
       this.authService.login(this.loginForm.value.email!, this.loginForm.value.password!);
     } else {
