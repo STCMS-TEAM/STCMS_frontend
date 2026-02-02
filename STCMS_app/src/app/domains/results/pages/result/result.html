@@ -10,6 +10,7 @@
     <button class="btn btn-secondary mb-2 " (click)="backToTournaments()">← Back</button>
     <app-match></app-match>
     @if (selectedTournament()?._id) {
+    <app-rankings class="mt-2"></app-rankings>
     <app-teams-list class="mt-2"></app-teams-list>
     }
     }
@@ -23,7 +24,8 @@
 
     <div class="teams-column-placeholder">
       @if (selectedTournament()?._id) {
-      <app-teams-list></app-teams-list>
+      <app-rankings></app-rankings>
+      <app-teams-list class="mt-3"></app-teams-list>
       }
     </div>
   </div>
