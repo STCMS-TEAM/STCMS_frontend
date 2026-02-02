@@ -67,3 +67,17 @@ export interface createTeam {
   name: string;
   players: string[];
 }
+
+export interface RankingEntry {
+  position?: number;
+  team?: { _id: string; name: string } | string;
+  teamName?: string;
+  points?: number;
+  played?: number;
+  wins?: number;
+  draws?: number;
+  losses?: number;
+  goalsFor?: number;
+  goalsAgainst?: number;
+  goalDifference?: number;
+}

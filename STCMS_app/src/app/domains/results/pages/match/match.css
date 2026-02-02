@@ -1,0 +1,31 @@
+.match-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 140px;
+}
+
+.match-edit-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.match-edit-team-name {
+  font-size: 0.85rem;
+  min-width: 80px;
+  text-align: right;
+}
+
+.score-input {
+  width: 3rem;
+  text-align: center;
+}
+
+.match-edit-actions {
+  display: flex;
+  gap: 0.35rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}

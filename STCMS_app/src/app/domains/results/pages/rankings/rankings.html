@@ -1,0 +1,31 @@
+<div class="rankings-section p-2 bg-dark">
+  <h6 class="text-white mb-2">Standings</h6>
+  @if (loading()) {
+  <p class="text-white-50 small mb-0">Loading...</p>
+  } @else if (error()) {
+  <p class="text-white-50 small mb-0">{{ error() }}</p>
+  } @else if (rankings().length === 0) {
+  <p class="text-white-50 small mb-0">No standings available</p>
+  } @else {
+  <div class="rankings-table-wrapper">
+    <table class="rankings-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Team</th>
+          <th>Pts</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (entry of rankings(); track $index) {
+        <tr>
+          <td>{{ entry.position ?? $index + 1 }}</td>
+          <td class="team-name">{{ getTeamName(entry) }}</td>
+          <td>{{ entry.points ?? '-' }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  }
+</div>

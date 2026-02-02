@@ -8,6 +8,7 @@ import {
   TournamentForm,
   TeamListItem,
   TeamWithPlayers,
+  RankingEntry,
 } from '../../../shared/models/tournament';
 import { MatchDTO } from '../../../shared/models/matches';
 
@@ -99,5 +100,17 @@ export class ResultsService {
 
   deleteTournament(id: string): Observable<{ message: string }> {
     return this.http.delete<{ message: string }>(`${this.baseUrl}/${id}`);
+  }
+
+  getRankings(tournamentId: string): Observable<RankingEntry[]> {
+    return this.http.get<RankingEntry[]>(`${this.baseUrl}/${tournamentId}/rankings`);
+  }
+
+  updateMatchResult(matchId: string, score: Record<string, number>): Observable<any> {
+    return this.http.patch<any>(`${environment.API_DEV_URL}/matches/${matchId}/result`, { score });
+  }
+
+  updateMatchStatus(matchId: string, status: 'pending' | 'live' | 'completed'): Observable<any> {
+    return this.http.patch<any>(`${environment.API_DEV_URL}/matches/${matchId}/status`, { status });
   }
 }
