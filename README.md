@@ -103,8 +103,9 @@ This distinction reflects the architectural differences explored in the project.
 In the `main` branch, the frontend is served by the monolithic backend.
 
 To run the application:
-- Clone the corresponding backend repository
-- Start the system using **Docker Compose**
+- Clone the STCMS_project repository and enter the STCMS_project directory.
+- Create an .env file like the one in the STCMS_project repository.
+- Start the system using `docker-compose up --build -d`
 
 No additional frontend setup is required in this branch.
 
